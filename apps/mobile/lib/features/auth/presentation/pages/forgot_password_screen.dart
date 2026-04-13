@@ -40,6 +40,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
             child: Padding(
               padding: const EdgeInsets.all(16),
               child: CircleAvatar(
+                // ignore: deprecated_member_use
                 backgroundColor: Colors.white.withOpacity(0.2),
                 child: IconButton(
                   icon: const Icon(Icons.arrow_back, color: Colors.white),
@@ -62,6 +63,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                 borderRadius: BorderRadius.circular(25),
                 boxShadow: [
                   BoxShadow(
+                    // ignore: deprecated_member_use
                     color: Colors.black.withOpacity(0.05),
                     blurRadius: 10,
                   ),
@@ -76,6 +78,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                   Container(
                     padding: const EdgeInsets.all(12),
                     decoration: BoxDecoration(
+                      // ignore: deprecated_member_use
                       color: const Color(0xFF1EB980).withOpacity(0.1),
                       borderRadius: BorderRadius.circular(15),
                     ),
@@ -146,9 +149,8 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                         ),
                       ),
                       onPressed: () {
-                        String email = emailController.text;
+                        String _ = emailController.text;
 
-                        print("Reset link sent to: $email");
 
                         ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(
