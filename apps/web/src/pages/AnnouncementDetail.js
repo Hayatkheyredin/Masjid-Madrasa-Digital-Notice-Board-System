@@ -7,7 +7,7 @@ const announcements = {
     title: 'Special Eid Al-Fitr Prayer 1445H',
     category: 'Event',
     type: 'eid',
-    hero: 'https://images.unsplash.com/photo-1549893073-173dd5049f6d?auto=format&fit=crop&w=1200&q=80',
+    hero: 'https://sheikhdrsultan.ae/Portal/Content/Generated/Thumbnails/4df5a3f5_3201x2581wTransparent.jpg', 
     description: 'Join us for the most joyous occasion of the year! Noor Masjid invites all community members, families, and friends to the Eid Al-Fitr congregational prayer and our annual community festival.',
     details: 'The program includes the Takbeerat, the Eid Prayer, and a Khutbah. Following the formal service, we will have breakfast refreshments, activities for children, and a community bazaar in the parking lot area.',
     features: [
@@ -28,14 +28,14 @@ const announcements = {
   },
   'winter-quran-registration': {
     id: 'winter-quran-registration',
-    title: 'Winter Quran Intensive Registration',
+    title: 'Quran and Kitab Intensive Registration',
     category: 'Madrasa',
     type: 'madrasa',
-    hero: 'https://images.unsplash.com/photo-1505839673365-e3971f8d9184?auto=format&fit=crop&w=1200&q=80',
+    hero: 'https://images.unsplash.com/photo-1623314556929-69d34cb19010?fm=jpg&q=60&w=3000&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8a2l0YWIlMjBhcmFifGVufDB8fDB8fHww',
     description: 'Najashi Masjid in Koye Feche, Addis Ababa is opening winter Quran enrollment for youth. Select from multiple kitaab tracks, each with a dedicated instructor, timeline, and assessment plan.',
     details: 'This winter program is held at Najashi Masjid and focuses on Quran memorization, Tajweed, and Islamic studies. Classes run Monday through Thursday from 4:00 PM to 6:00 PM. Students will receive all materials and can join the structured kitāb-based tracks.',
     features: [
-      { label: 'Age Groups', description: '7-10 years and 11-15 years' },
+      { label: 'Age Groups', description: 'no restricted age' },
       { label: 'Transportation', description: 'Pickup from participating schools' },
       { label: 'Materials', description: 'All books and supplies included' },
       { label: 'Multiple Kitaab Tracks', description: 'Select from eight distinct study paths' }
@@ -48,7 +48,7 @@ const announcements = {
         classTime: 'Monday & Wednesday 4:00 PM - 6:00 PM',
         currentPage: 'Page 18',
         yearWritten: '8th century CE',
-        image: 'https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?auto=format&fit=crop&w=900&q=80',
+        image: 'https://quranlearningusa.com/blog/wp-content/uploads/2024/12/147603740-102499925-1566817755.webp',
         description: 'Comprehensive study of the first 10 chapters of Surah Al-Baqarah, focusing on legal rulings, stories of prophets, and practical applications.',
         startDate: 'December 2, 2024',
         endDate: 'January 15, 2025',
@@ -63,7 +63,7 @@ const announcements = {
         classTime: 'Tuesday & Thursday 4:00 PM - 6:00 PM',
         currentPage: 'Lesson 5',
         yearWritten: '2022',
-        image: 'https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?auto=format&fit=crop&w=900&q=80',
+        image: 'https://fastercapital.com/images/company/sharing/tajweed.jpg',
         description: 'Fundamental rules of Quran recitation including proper pronunciation, elongation, and articulation points.',
         startDate: 'December 2, 2024',
         endDate: 'February 28, 2025',
@@ -78,7 +78,7 @@ const announcements = {
         classTime: 'Monday & Wednesday 4:15 PM - 5:45 PM',
         currentPage: 'Chapter 3',
         yearWritten: '2020',
-        image: 'https://images.unsplash.com/photo-1519682337058-a94d519337bc?auto=format&fit=crop&w=900&q=80',
+        image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRKyrTqVQu6T-6tttGvvrx1Ouqgf3dV562PXw&s',
         description: 'Stories of major prophets from Adam to Muhammad (PBUH), their struggles and lessons for modern Muslims.',
         startDate: 'December 9, 2024',
         endDate: 'March 15, 2025',
@@ -93,7 +93,7 @@ const announcements = {
         classTime: 'Friday 4:00 PM - 6:00 PM',
         currentPage: 'Noun & Verb Patterns',
         yearWritten: '2019',
-        image: 'https://images.unsplash.com/photo-1512290923902-8a9f81dc236c?auto=format&fit=crop&w=900&q=80',
+        image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQjRHPvMIe_l_C5hBf611kFoQ4rymcjZqE07A&s',
         description: 'Essential Arabic grammar rules needed for understanding Quran and Hadith, including I\'rab and Sarf.',
         startDate: 'January 6, 2025',
         endDate: 'March 30, 2025',
@@ -108,7 +108,7 @@ const announcements = {
         classTime: 'Tuesday & Thursday 4:15 PM - 5:45 PM',
         currentPage: 'Verse 50',
         yearWritten: '2021',
-        image: 'https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?auto=format&fit=crop&w=900&q=80',
+        image: 'https://img.freepik.com/premium-vector/surah-yusuf-quran-calligraphy-surah-holy-quran-surat-yusuf-islamic-vector_724044-48.jpg',
         description: 'Focused memorization of Surah Yusuf with meaning and tajweed emphasis.',
         startDate: 'December 16, 2024',
         endDate: 'February 10, 2025',
@@ -123,7 +123,7 @@ const announcements = {
         classTime: 'Saturday 11:00 AM - 1:00 PM',
         currentPage: 'Book 4',
         yearWritten: '1994',
-        image: 'https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?auto=format&fit=crop&w=900&q=80',
+        image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQl5WEh6WvsRu0gLkstRShaII2UEBLTbRKSpQ&s',
         description: 'Selected hadiths covering good character, worship, and community conduct.',
         startDate: 'January 2, 2025',
         endDate: 'March 20, 2025',
@@ -138,7 +138,7 @@ const announcements = {
         classTime: 'Wednesday 4:00 PM - 6:00 PM',
         currentPage: 'Prayer & Purity',
         yearWritten: '2023',
-        image: 'https://images.unsplash.com/photo-1496317899792-9d7dbcd928a1?auto=format&fit=crop&w=900&q=80',
+        image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS8Z0Osq928SLEaP52NXvg4-khwE_mjyimCWw&s',
         description: 'Introductory fiqh concepts that support correct Quranic practice and daily worship.',
         startDate: 'January 13, 2025',
         endDate: 'April 5, 2025',
@@ -146,21 +146,6 @@ const announcements = {
         assignments: 'Case studies and practical application exercises',
         relatedWorks: ['Youth Fiqh Essentials', 'Islamic Rulings for Daily Life']
       },
-      {
-        name: 'Quranic Vocabulary Workshop',
-        author: 'Ustadh Hamzah Yusuf',
-        teacher: 'Ustadh Hassan',
-        classTime: 'Thursday 4:00 PM - 6:00 PM',
-        currentPage: 'Word Roots & Meanings',
-        yearWritten: '2022',
-        image: 'https://images.unsplash.com/photo-1494959764136-6be78f5f9531?auto=format&fit=crop&w=900&q=80',
-        description: 'Build a strong Quranic vocabulary to improve reading comprehension and Tajweed awareness.',
-        startDate: 'February 1, 2025',
-        endDate: 'April 20, 2025',
-        tests: 'Weekly vocabulary quizzes',
-        assignments: 'Flashcard practice and sentence translation tasks',
-        relatedWorks: ['Quranic Vocabulary for Beginners', 'Advanced Quranic Lexicon']
-      }
     ],
     instructors: [
       { name: 'Ustadh Omar', subject: 'Quran Memorization' },
@@ -177,7 +162,7 @@ const announcements = {
     id: 'food-drive',
     category: 'Events',
     type: 'event',
-    hero: 'https://images.unsplash.com/photo-1498654896293-37aacf113fd9?auto=format&fit=crop&w=900&q=80',
+    hero: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTa5xbkV-IPgMXkuCAAHLNliMr4JSd4XYCLXw&s',
     description: 'Help us distribute food parcels to local families in need this Sunday morning. Volunteers needed for sorting and delivery.',
     details: 'We need volunteers to help sort donations, pack food parcels, and deliver to families. All volunteers will receive breakfast and lunch. Gloves and masks will be provided. We also provide Iftar meals during Ramadan.',
     features: [
@@ -263,7 +248,7 @@ const announcements = {
     id: 'upcoming-khutbah',
     category: 'Friday',
     type: 'khutbah',
-    hero: 'https://images.unsplash.com/photo-1524213156136-7e6cdd7302df?auto=format&fit=crop&w=900&q=80',
+    hero: 'https://open-images.acast.com/shows/64c531806624ec0011ae53f0/1699125015368-e9907e55d1eafe175418806313ac1361.jpeg?height=750',
     description: 'We are pleased to announce our guest speakers for the month of November. View the full list and topics online.',
     details: 'This month features inspiring Khutbahs from renowned scholars. Topics include community building, family values, and contemporary Islamic issues.',
     speakers: [
@@ -292,7 +277,7 @@ const announcements = {
         details: 'In this Khutbah, the Imam will discuss the Islamic concepts of Sabr (patience) and Shukr (gratitude) as essential qualities for Muslims. He\'ll explain how trials and tribulations are tests from Allah, and how maintaining patience and expressing gratitude transforms difficulties into opportunities for spiritual growth. This topic is particularly relevant given current global challenges and personal hardships many face.'
       }
     ],
-    location: 'Noor Masjid Main Prayer Hall, 123 Islamic Center Dr, Chicago, IL 60601',
+    location: 'Nejashi Mesjid, Koye Feche, Addis Ababa, Ethiopia ',
     otherUpdates: [
       { title: 'New Khutbah Series Announced', info: '1 week ago' },
       { title: 'Online Khutbah Archive', info: '2 weeks ago' }

@@ -11,12 +11,7 @@ function Sidebar() {
         </div>
       </div>
 
-      <nav style={{ flex: 1 }}>
-        <SidebarItem icon="🏠" label="Dashboard" />
-        <SidebarItem icon="📖" label="Madrasa" active />
-        <SidebarItem icon="�" label="Events" />
-        <SidebarItem icon="🤲" label="Donations" />
-      </nav>
+     
 
       <div style={{ paddingLeft: '10px', color: '#94A3B8', fontSize: '14px', fontWeight: '600' }}>⚙️ Settings</div>
     </div>

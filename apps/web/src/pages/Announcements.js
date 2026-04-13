@@ -2,12 +2,12 @@ import React, { useState, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const featuredAnnouncement = {
-  id: 'winter-quran-registration',
+  id: 'winter--registration',
   category: 'Madrasa',
   title: 'Winter Quran Intensive Registration',
   description: 'Registration is now open for our annual winter Quran program for youth ages 7-15 at Najashi Masjid, Koye Feche. Limited spots available.',
   time: '2 days ago',
-  image: 'https://images.unsplash.com/photo-1609592806500-3e27a7b0b5a8?auto=format&fit=crop&w=1200&q=80',
+  image: 'https://aastumuslims.great-site.net/wp-content/uploads/2025/05/ChatGPT-Image-May-7-2025-06_06_04-PM-1-1024x683.png',
   type: 'madrasa'
 };
 
@@ -15,10 +15,10 @@ const announcements = [
   {
     id: 'winter-quran-registration',
     category: 'Madrasa',
-    title: 'Winter Quran Intensive Registration',
+    title: 'Quran And Kitab Intensive Registration',
     description: 'Registration is now open for our annual winter Quran program for youth ages 7-15. Limited spots available.',
     time: '2 days ago',
-    image: 'https://images.unsplash.com/photo-1609592806500-3e27a7b0b5a8?auto=format&fit=crop&w=900&q=80',
+    image: 'https://www.shutterstock.com/image-photo/arabic-books-260nw-36770200.jpg',
     type: 'madrasa'
   },
   {
@@ -27,7 +27,7 @@ const announcements = [
     title: 'Monthly Community Food Drive',
     description: 'Help us distribute food parcels to local families in need this Sunday morning. Volunteers needed.',
     time: '5 hours ago',
-    image: 'https://images.unsplash.com/photo-1498654896293-37aacf113fd9?auto=format&fit=crop&w=900&q=80',
+    image: 'https://media.assettype.com/gulfnews%2Fimport%2F2019%2F05%2F17%2FNAT_190514_KMCC-IFTAR_VS-16-1558090166720_16ac56931c2_large.jpg',
     type: 'event'
   },
   {
@@ -45,7 +45,7 @@ const announcements = [
     title: 'Upcoming Friday Khutbah Schedule',
     description: 'Guest speakers announced for the month. View full topics and details.',
     time: 'Yesterday',
-    image: 'https://images.unsplash.com/photo-1524213156136-7e6cdd7302df?auto=format&fit=crop&w=900&q=80',
+    image: 'https://cdn-ilejeel.nitrocdn.com/xLnVYddYcrehmWgSnEBLHqpnAehzfCNW/assets/images/optimized/rev-78ae8aa/seekersguidance.org/wp-content/uploads/2024/02/shutterstock_1484182904-scaled.jpg',
     type: 'khutbah'
   },
   {
@@ -54,7 +54,7 @@ const announcements = [
     title: 'Special Eid Al-Fitr Prayer 1445H',
     description: 'Join us for Eid congregational prayer and community festival at Najashi Masjid.',
     time: '3 days ago',
-    image: 'https://images.unsplash.com/photo-1549893073-173dd5049f6d?auto=format&fit=crop&w=900&q=80',
+    image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSOKc62jxeNbONgEtcARnO5mt-QdIwjbT6LAw&s',
     type: 'eid'
   }
 ];
