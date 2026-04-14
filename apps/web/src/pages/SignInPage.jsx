@@ -1,12 +1,12 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { Eye, EyeOff, Lock, Mail, ShieldCheck, User } from 'lucide-react'
+import { Eye, EyeOff, Lock, Mail } from 'lucide-react'
 import { AppleGlyph, GoogleGlyph } from '../components/auth/SocialGlyphs'
 import { MasjidMark } from '../components/auth/MasjidMark'
 import { Button } from '../components/ui/Button'
 import { AuthTextField } from '../components/ui/AuthTextField'
 
-export function SignUpPage() {
+export function SignInPage() {
   const [showPassword, setShowPassword] = useState(false)
 
   function handleSubmit(e) {
@@ -25,22 +25,12 @@ export function SignUpPage() {
         </div>
         <h1 className="auth-card__title">Noor Masjid</h1>
         <p className="auth-card__subtitle">
-          Join the Ummah today and stay connected with your local mosque.
+          Welcome back — sign in to stay connected with your local mosque.
         </p>
 
         <form onSubmit={handleSubmit} noValidate>
           <AuthTextField
-            id="signup-name"
-            label="Full Name"
-            name="fullName"
-            type="text"
-            placeholder="Enter your full name"
-            autoComplete="name"
-            icon={<User size={18} strokeWidth={2} />}
-          />
-
-          <AuthTextField
-            id="signup-email"
+            id="login-email"
             label="Email Address"
             name="email"
             type="email"
@@ -50,12 +40,12 @@ export function SignUpPage() {
           />
 
           <AuthTextField
-            id="signup-password"
+            id="login-password"
             label="Password"
             name="password"
             type={showPassword ? 'text' : 'password'}
-            placeholder="Create a strong password"
-            autoComplete="new-password"
+            placeholder="Enter your password"
+            autoComplete="current-password"
             icon={<Lock size={18} strokeWidth={2} />}
             right={
               <button
@@ -73,18 +63,12 @@ export function SignUpPage() {
             }
           />
 
-          <AuthTextField
-            id="signup-password-confirm"
-            label="Confirm Password"
-            name="confirmPassword"
-            type={showPassword ? 'text' : 'password'}
-            placeholder="Repeat your password"
-            autoComplete="new-password"
-            icon={<ShieldCheck size={18} strokeWidth={2} />}
-          />
+          <div className="auth-forgot">
+            <Link to="/forgot-password">Forgot password?</Link>
+          </div>
 
           <Button type="submit" variant="primary" className="auth-submit">
-            Create Account
+            Sign In
           </Button>
         </form>
 
@@ -104,7 +88,7 @@ export function SignUpPage() {
         </div>
 
         <p className="auth-footer">
-          Already have an account? <Link to="/login">Sign In</Link>
+          Don&apos;t have an account? <Link to="/signup">Sign up</Link>
         </p>
       </div>
     </div>

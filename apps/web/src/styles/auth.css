@@ -210,3 +210,19 @@
 .auth-footer a:hover {
   color: var(--color-brand-dark);
 }
+
+.auth-forgot {
+  display: flex;
+  justify-content: flex-end;
+  margin: -0.35rem 0 0.85rem;
+}
+
+.auth-forgot a {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--color-brand);
+}
+
+.auth-forgot a:hover {
+  color: var(--color-brand-dark);
+}
