@@ -2,20 +2,11 @@ import 'package:flutter/material.dart';
 // Use the package prefix
 import 'package:mobile/features/auth/presentation/pages/splash_screen.dart'; 
 
-void main() {
-  runApp(const MyApp());
-}
+import 'app/injection_container.dart';
+import 'app/main_app_shell.dart';
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    // Removed 'const' from MaterialApp because if SplashScreen 
-    // is being modified, it might prevent a constant build.
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: const SplashScreen(), 
-    );
-  }
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await configureDependencies();
+  runApp(const MainAppShell());
 }
