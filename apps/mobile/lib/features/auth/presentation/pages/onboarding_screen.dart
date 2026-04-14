@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'login_screen.dart';
+import '../../../../app/app_theme.dart';
 
 class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({super.key});
@@ -12,6 +13,12 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   final PageController _controller = PageController();
   int currentPage = 0;
 
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
   /// NEXT BUTTON
   void nextPage() {
     if (currentPage < 2) {
@@ -23,7 +30,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-          builder: (_) => const HomeScreen(),
+          builder: (_) => const LoginScreen(),
         ),
       );
     }
@@ -49,7 +56,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
       width: active ? 20 : 8,
       height: 8,
       decoration: BoxDecoration(
-        color: active ? const Color(0xFF1EB980) : Colors.green[200],
+        color: active ? AppTheme.primaryGreen : AppTheme.primaryGreen.withValues(alpha: 0.3),
         borderRadius: BorderRadius.circular(10),
       ),
     );
@@ -57,8 +64,11 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final isDark = theme.brightness == Brightness.dark;
+    
     return Scaffold(
-      backgroundColor: const Color(0xFFF7FAF9),
+      backgroundColor: theme.scaffoldBackgroundColor,
       body: SafeArea(
         child: Column(
           children: [
@@ -74,15 +84,17 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   IconButton(
                     icon: Icon(
                       currentPage == 0 ? Icons.close : Icons.arrow_back,
+                      color: theme.colorScheme.onSurface,
                     ),
                     onPressed: previousPage,
                   ),
 
                   Text(
                     "STEP ${currentPage + 1} OF 3",
-                    style: const TextStyle(
+                    style: theme.textTheme.labelMedium?.copyWith(
                       fontWeight: FontWeight.w600,
-                      color: Colors.grey,
+                      color: theme.colorScheme.onSurface.withValues(alpha: 0.7),
+                      letterSpacing: 1.2,
                     ),
                   ),
 
@@ -92,13 +104,15 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                       Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
-                          builder: (_) => const HomeScreen(),
+                          builder: (_) => const LoginScreen(),
                         ),
                       );
                     },
-                    child: const Text(
+                    child: Text(
                       "Skip",
-                      style: TextStyle(color: Colors.grey),
+                      style: theme.textTheme.labelLarge?.copyWith(
+                        color: theme.colorScheme.onSurface.withValues(alpha: 0.7),
+                      ),
                     ),
                   ),
                 ],
@@ -141,18 +155,23 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: SizedBox(
                 width: double.infinity,
-                height: 55,
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFF1EB980),
+                height: 52,
+                child: FilledButton(
+                  style: FilledButton.styleFrom(
+                    backgroundColor: AppTheme.primaryGreen,
+                    foregroundColor: Colors.white,
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30),
+                      borderRadius: BorderRadius.circular(12),
                     ),
+                    textStyle: theme.textTheme.labelLarge,
                   ),
                   onPressed: nextPage,
                   child: Text(
                     currentPage == 2 ? "Get Started" : "Next →",
-                    style: const TextStyle(fontSize: 16),
+                    style: theme.textTheme.labelLarge?.copyWith(
+                      color: Colors.white,
+                      fontWeight: FontWeight.w600,
+                    ),
                   ),
                 ),
               ),
@@ -167,6 +186,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
 
   /// ================= PAGE 1 =================
   Widget buildPage1() {
+    final theme = Theme.of(context);
+    final isDark = theme.brightness == Brightness.dark;
+    
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20),
       child: Column(
@@ -178,10 +200,23 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
           Container(
             height: 250,
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(20),
-              gradient: const LinearGradient(
-                colors: [Color(0xFF0F3D2E), Color(0xFF2E7D5B)],
+              borderRadius: BorderRadius.circular(16),
+              gradient: LinearGradient(
+                colors: [
+                  AppTheme.primaryGreen.withValues(alpha: 0.8),
+                  AppTheme.primaryGreen,
+                ],
               ),
+              border: isDark 
+                  ? Border.all(color: AppTheme.primaryGreen.withValues(alpha: 0.3))
+                  : null,
+              boxShadow: isDark ? null : [
+                BoxShadow(
+                  color: AppTheme.primaryGreen.withValues(alpha: 0.3),
+                  blurRadius: 20,
+                  offset: const Offset(0, 8),
+                ),
+              ],
             ),
             child: const Center(
               child: Icon(Icons.mosque, size: 100, color: Colors.white),
@@ -190,28 +225,32 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
 
           const SizedBox(height: 30),
 
-          const Text(
+          Text(
             "Stay connected with",
             textAlign: TextAlign.center,
-            style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+            style: theme.textTheme.headlineSmall?.copyWith(
+              color: theme.colorScheme.onSurface,
+              fontWeight: FontWeight.w700,
+            ),
           ),
 
-          const Text(
+          Text(
             "your Masjid",
             textAlign: TextAlign.center,
-            style: TextStyle(
-              fontSize: 26,
-              fontWeight: FontWeight.bold,
-              color: Color(0xFF1EB980),
+            style: theme.textTheme.headlineSmall?.copyWith(
+              color: AppTheme.primaryGreen,
+              fontWeight: FontWeight.w700,
             ),
           ),
 
           const SizedBox(height: 15),
 
-          const Text(
+          Text(
             "Get the latest prayer times, community announcements, and local events directly to your phone.",
             textAlign: TextAlign.center,
-            style: TextStyle(color: Colors.grey),
+            style: theme.textTheme.bodyMedium?.copyWith(
+              color: theme.colorScheme.onSurface.withValues(alpha: 0.7),
+            ),
           ),
         ],
       ),
@@ -220,6 +259,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
 
   /// ================= PAGE 2 =================
   Widget buildPage2() {
+    final theme = Theme.of(context);
+    final isDark = theme.brightness == Brightness.dark;
+    
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20),
       child: Column(
@@ -233,31 +275,43 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             width: 260,
             decoration: BoxDecoration(
               shape: BoxShape.circle,
-              color: Colors.green.withOpacity(0.1),
+              color: AppTheme.primaryGreen.withValues(alpha: 0.1),
+              border: isDark 
+                  ? Border.all(color: AppTheme.primaryGreen.withValues(alpha: 0.3))
+                  : null,
             ),
             child: Center(
               child: Container(
                 padding: const EdgeInsets.all(25),
                 decoration: BoxDecoration(
-                  color: const Color(0xFF1EB980),
-                  borderRadius: BorderRadius.circular(20),
+                  color: AppTheme.primaryGreen,
+                  borderRadius: BorderRadius.circular(16),
+                  boxShadow: isDark ? null : [
+                    BoxShadow(
+                      color: AppTheme.primaryGreen.withValues(alpha: 0.3),
+                      blurRadius: 15,
+                      offset: const Offset(0, 5),
+                    ),
+                  ],
                 ),
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
-                  children: const [
-                    Icon(Icons.notifications, color: Colors.white, size: 40),
-                    SizedBox(height: 10),
+                  children: [
+                    const Icon(Icons.notifications, color: Colors.white, size: 40),
+                    const SizedBox(height: 10),
                     Text(
                       "05:24 AM",
-                      style: TextStyle(
+                      style: theme.textTheme.titleLarge?.copyWith(
                         color: Colors.white,
-                        fontSize: 22,
-                        fontWeight: FontWeight.bold,
+                        fontWeight: FontWeight.w700,
                       ),
                     ),
                     Text(
                       "FAJR PRAYER",
-                      style: TextStyle(color: Colors.white70),
+                      style: theme.textTheme.labelMedium?.copyWith(
+                        color: Colors.white.withValues(alpha: 0.8),
+                        letterSpacing: 1.2,
+                      ),
                     ),
                   ],
                 ),
@@ -271,29 +325,43 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
           Container(
             padding: const EdgeInsets.all(15),
             decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(15),
-              boxShadow: [
+              color: theme.cardColor,
+              borderRadius: BorderRadius.circular(16),
+              border: isDark 
+                  ? Border.all(color: theme.colorScheme.outline.withValues(alpha: 0.3))
+                  : null,
+              boxShadow: isDark ? null : [
                 BoxShadow(
-                  color: Colors.black.withOpacity(0.05),
+                  color: Colors.black.withValues(alpha: 0.05),
                   blurRadius: 10,
-                )
+                  offset: const Offset(0, 2),
+                ),
               ],
             ),
             child: Row(
-              children: const [
+              children: [
                 CircleAvatar(
-                  backgroundColor: Color(0xFF1EB980),
-                  child: Icon(Icons.campaign, color: Colors.white),
+                  backgroundColor: AppTheme.accentGold.withValues(alpha: 0.2),
+                  child: Icon(Icons.campaign, color: AppTheme.accentGold),
                 ),
-                SizedBox(width: 10),
+                const SizedBox(width: 12),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text("ANNOUNCEMENT",
-                        style: TextStyle(color: Colors.grey)),
-                    Text("Friday Khutbah Update",
-                        style: TextStyle(fontWeight: FontWeight.bold)),
+                    Text(
+                      "ANNOUNCEMENT",
+                      style: theme.textTheme.labelSmall?.copyWith(
+                        color: theme.colorScheme.onSurface.withValues(alpha: 0.7),
+                        letterSpacing: 1.2,
+                      ),
+                    ),
+                    Text(
+                      "Friday Khutbah Update",
+                      style: theme.textTheme.labelLarge?.copyWith(
+                        color: theme.colorScheme.onSurface,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
                   ],
                 )
               ],
@@ -302,18 +370,23 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
 
           const SizedBox(height: 30),
 
-          const Text(
+          Text(
             "Prayer Times & Announcements",
             textAlign: TextAlign.center,
-            style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+            style: theme.textTheme.headlineSmall?.copyWith(
+              color: theme.colorScheme.onSurface,
+              fontWeight: FontWeight.w700,
+            ),
           ),
 
           const SizedBox(height: 10),
 
-          const Text(
+          Text(
             "Stay updated with accurate Athan times and important notifications from your local mosque community.",
             textAlign: TextAlign.center,
-            style: TextStyle(color: Colors.grey),
+            style: theme.textTheme.bodyMedium?.copyWith(
+              color: theme.colorScheme.onSurface.withValues(alpha: 0.7),
+            ),
           ),
         ],
       ),
@@ -322,6 +395,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
 
   /// ================= PAGE 3 =================
   Widget buildPage3() {
+    final theme = Theme.of(context);
+    final isDark = theme.brightness == Brightness.dark;
+    
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20),
       child: Column(
@@ -333,28 +409,47 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
           Container(
             height: 220,
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(20),
-              color: const Color(0xFFE8C89A),
+              borderRadius: BorderRadius.circular(16),
+              color: AppTheme.accentGold.withValues(alpha: 0.2),
+              border: isDark 
+                  ? Border.all(color: AppTheme.accentGold.withValues(alpha: 0.3))
+                  : null,
+              boxShadow: isDark ? null : [
+                BoxShadow(
+                  color: AppTheme.accentGold.withValues(alpha: 0.2),
+                  blurRadius: 15,
+                  offset: const Offset(0, 5),
+                ),
+              ],
             ),
-            child: const Center(
-              child: Icon(Icons.menu_book, size: 100, color: Colors.white),
+            child: Center(
+              child: Icon(
+                Icons.menu_book, 
+                size: 100, 
+                color: AppTheme.accentGold,
+              ),
             ),
           ),
 
           const SizedBox(height: 30),
 
-          const Text(
+          Text(
             "Join madrasa classes and events",
             textAlign: TextAlign.center,
-            style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+            style: theme.textTheme.headlineSmall?.copyWith(
+              color: theme.colorScheme.onSurface,
+              fontWeight: FontWeight.w700,
+            ),
           ),
 
           const SizedBox(height: 10),
 
-          const Text(
+          Text(
             "Connect with scholars and peers in interactive learning sessions and community gatherings across the globe.",
             textAlign: TextAlign.center,
-            style: TextStyle(color: Colors.grey),
+            style: theme.textTheme.bodyMedium?.copyWith(
+              color: theme.colorScheme.onSurface.withValues(alpha: 0.7),
+            ),
           ),
         ],
       ),

@@ -25,8 +25,11 @@ class KhutbahCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final isDark = theme.brightness == Brightness.dark;
+    
     return NoorCard(
-      padding: const EdgeInsets.all(10),
+      padding: const EdgeInsets.all(16),
       child: InkWell(
         borderRadius: BorderRadius.circular(16),
         onTap: onTap,
@@ -37,47 +40,95 @@ class KhutbahCard extends StatelessWidget {
               height: 150,
               width: double.infinity,
               decoration: BoxDecoration(
-                color: const Color(0xFFDDEEE6),
+                color: AppTheme.primaryGreen.withValues(alpha: 0.1),
                 borderRadius: BorderRadius.circular(12),
+                border: isDark 
+                    ? Border.all(color: AppTheme.primaryGreen.withValues(alpha: 0.3))
+                    : null,
               ),
-              child: const Center(
-                child: Icon(Icons.mic_rounded, size: 40, color: AppTheme.primaryGreen),
+              child: Center(
+                child: Icon(
+                  Icons.mic_rounded, 
+                  size: 40, 
+                  color: AppTheme.primaryGreen,
+                ),
               ),
             ),
-            const SizedBox(height: 10),
-            Text(title, style: Theme.of(context).textTheme.titleLarge),
-            const SizedBox(height: 6),
+            const SizedBox(height: 12),
             Text(
-              'Imam: $imamName',
-              style: Theme.of(context).textTheme.labelLarge?.copyWith(color: Colors.grey),
-            ),
-            Text(
-              date,
-              style: Theme.of(context).textTheme.bodySmall?.copyWith(color: Colors.grey),
+              title, 
+              style: theme.textTheme.titleLarge?.copyWith(
+                color: theme.colorScheme.onSurface,
+                fontWeight: FontWeight.w700,
+              ),
             ),
             const SizedBox(height: 8),
+            Text(
+              'Imam: $imamName',
+              style: theme.textTheme.labelLarge?.copyWith(
+                color: theme.colorScheme.onSurface.withValues(alpha: 0.8),
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+            const SizedBox(height: 2),
+            Text(
+              date,
+              style: theme.textTheme.bodySmall?.copyWith(
+                color: AppTheme.primaryGreen,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+            const SizedBox(height: 12),
             Text(
               summary,
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
-              style: Theme.of(context).textTheme.bodyMedium,
+              style: theme.textTheme.bodyMedium?.copyWith(
+                color: theme.colorScheme.onSurface.withValues(alpha: 0.7),
+              ),
             ),
-            const SizedBox(height: 10),
+            const SizedBox(height: 16),
             Row(
               children: [
                 Expanded(
                   child: FilledButton.icon(
+                    style: FilledButton.styleFrom(
+                      backgroundColor: AppTheme.primaryGreen,
+                      foregroundColor: Colors.white,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                    ),
                     onPressed: onListen,
-                    icon: const Icon(Icons.headphones_rounded),
-                    label: const Text('Listen'),
+                    icon: const Icon(Icons.headphones_rounded, size: 18),
+                    label: Text(
+                      'Listen',
+                      style: theme.textTheme.labelLarge?.copyWith(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
                   ),
                 ),
-                const SizedBox(width: 8),
+                const SizedBox(width: 12),
                 Expanded(
                   child: OutlinedButton.icon(
+                    style: OutlinedButton.styleFrom(
+                      foregroundColor: AppTheme.primaryGreen,
+                      side: const BorderSide(color: AppTheme.primaryGreen),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                    ),
                     onPressed: onNotes,
-                    icon: const Icon(Icons.notes_rounded),
-                    label: const Text('Notes'),
+                    icon: const Icon(Icons.notes_rounded, size: 18),
+                    label: Text(
+                      'Notes',
+                      style: theme.textTheme.labelLarge?.copyWith(
+                        color: AppTheme.primaryGreen,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
                   ),
                 ),
               ],

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'onboarding_screen.dart';
+import '../../../../app/app_theme.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -26,45 +27,52 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final isDark = theme.brightness == Brightness.dark;
+    
     return Scaffold(
-      backgroundColor: const Color(0xFFF7FAF9),
+      backgroundColor: theme.scaffoldBackgroundColor,
       body: Stack(
         children: [
 
           /// 🔹 BACKGROUND GRADIENT
           Positioned.fill(
-            child: Opacity(
-              opacity: 0.1,
-              child: Container(
-                decoration: BoxDecoration(
-                  gradient: RadialGradient(
-                    colors: [Colors.green.shade50, Colors.white],
-                    radius: 1.2,
-                  ),
+            child: Container(
+              decoration: BoxDecoration(
+                gradient: RadialGradient(
+                  colors: isDark 
+                      ? [
+                          AppTheme.primaryGreen.withValues(alpha: 0.1),
+                          theme.scaffoldBackgroundColor,
+                        ]
+                      : [
+                          AppTheme.primaryGreen.withValues(alpha: 0.05),
+                          theme.scaffoldBackgroundColor,
+                        ],
+                  radius: 1.5,
                 ),
               ),
             ),
           ),
 
-          /// 🔹 TOP FLOWER
+          /// 🔹 DECORATIVE ELEMENTS
           Positioned(
-            top: 60,
+            top: 80,
             right: 40,
             child: Icon(
               Icons.local_florist,
-              size: 80,
-              color: Colors.green.withOpacity(0.3),
+              size: 60,
+              color: AppTheme.primaryGreen.withValues(alpha: 0.2),
             ),
           ),
 
-          /// 🔹 BOTTOM FLOWER
           Positioned(
-            bottom: 80,
+            bottom: 120,
             left: 30,
             child: Icon(
               Icons.local_florist,
-              size: 80,
-              color: Colors.green.withOpacity(0.3),
+              size: 60,
+              color: AppTheme.primaryGreen.withValues(alpha: 0.2),
             ),
           ),
 
@@ -74,60 +82,64 @@ class _SplashScreenState extends State<SplashScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
 
-                /// CIRCLE LOGO
+                /// LOGO CONTAINER
                 Container(
-                  padding: const EdgeInsets.all(30),
+                  width: 120,
+                  height: 120,
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
-                    color: Colors.white,
-                    boxShadow: [
+                    color: theme.cardColor,
+                    border: isDark 
+                        ? Border.all(color: AppTheme.primaryGreen.withValues(alpha: 0.3), width: 2)
+                        : null,
+                    boxShadow: isDark ? null : [
                       BoxShadow(
-                        color: Colors.green.withOpacity(0.2),
-                        blurRadius: 20,
-                        offset: const Offset(0, 10),
+                        color: AppTheme.primaryGreen.withValues(alpha: 0.2),
+                        blurRadius: 30,
+                        offset: const Offset(0, 15),
                       ),
                     ],
                   ),
                   child: const Icon(
                     Icons.mosque,
                     size: 60,
-                    color: Color(0xFF1EB980),
+                    color: AppTheme.primaryGreen,
                   ),
                 ),
 
-                const SizedBox(height: 30),
+                const SizedBox(height: 32),
 
                 /// TITLE
-                const Text(
+                Text(
                   "Noor Masjid",
-                  style: TextStyle(
-                    fontSize: 28,
-                    fontWeight: FontWeight.bold,
-                    color: Color(0xFF0A1F33),
+                  style: theme.textTheme.headlineSmall?.copyWith(
+                    fontSize: 32,
+                    fontWeight: FontWeight.w700,
+                    color: theme.colorScheme.onSurface,
                   ),
                 ),
 
-                const SizedBox(height: 10),
+                const SizedBox(height: 8),
 
                 /// SUBTITLE
-                const Text(
+                Text(
                   "EDUCATION & COMMUNITY",
-                  style: TextStyle(
-                    fontSize: 14,
+                  style: theme.textTheme.labelMedium?.copyWith(
                     letterSpacing: 1.5,
-                    color: Color(0xFF1EB980),
+                    color: AppTheme.primaryGreen,
+                    fontWeight: FontWeight.w600,
                   ),
                 ),
 
-                const SizedBox(height: 30),
+                const SizedBox(height: 40),
 
-                /// DOTS
+                /// LOADING DOTS
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    dot(true),
-                    dot(false),
-                    dot(false),
+                    _buildDot(true, theme),
+                    _buildDot(false, theme),
+                    _buildDot(false, theme),
                   ],
                 ),
               ],
@@ -136,16 +148,15 @@ class _SplashScreenState extends State<SplashScreen> {
 
           /// 🔹 BOTTOM TEXT
           Positioned(
-            bottom: 30,
+            bottom: 40,
             left: 0,
             right: 0,
             child: Center(
               child: Text(
                 '"Inspired by Faith, Driven by Community"',
-                style: TextStyle(
-                  fontSize: 14,
+                style: theme.textTheme.bodyMedium?.copyWith(
                   fontStyle: FontStyle.italic,
-                  color: Colors.grey[600],
+                  color: theme.colorScheme.onSurface.withValues(alpha: 0.7),
                 ),
               ),
             ),
@@ -155,14 +166,16 @@ class _SplashScreenState extends State<SplashScreen> {
     );
   }
 
-  /// DOT
-  Widget dot(bool active) {
+  /// DOT INDICATOR
+  Widget _buildDot(bool active, ThemeData theme) {
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 4),
-      width: active ? 10 : 8,
-      height: active ? 10 : 8,
+      width: active ? 12 : 8,
+      height: active ? 12 : 8,
       decoration: BoxDecoration(
-        color: active ? const Color(0xFF1EB980) : Colors.green[200],
+        color: active 
+            ? AppTheme.primaryGreen 
+            : AppTheme.primaryGreen.withValues(alpha: 0.3),
         shape: BoxShape.circle,
       ),
     );

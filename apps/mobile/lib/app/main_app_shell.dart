@@ -1,49 +1,41 @@
 import 'package:flutter/material.dart';
 
-import 'app_theme.dart';
 import '../features/community/presentation/screens/community_screen.dart';
 import '../features/home/presentation/screens/home_screen.dart';
 import '../features/prayer/presentation/screens/prayer_screen.dart';
 import '../features/profile/presentation/screens/profile_screen.dart';
 
-class MainAppShell extends StatelessWidget {
+class MainAppShell extends StatefulWidget {
   const MainAppShell({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Masjid & Madrasa',
-      debugShowCheckedModeBanner: false,
-      theme: AppTheme.light(),
-      darkTheme: AppTheme.dark(),
-      themeMode: ThemeMode.system,
-      home: const _RootNavScreen(),
-    );
-  }
+  State<MainAppShell> createState() => _MainAppShellState();
 }
 
-class _RootNavScreen extends StatefulWidget {
-  const _RootNavScreen();
-
-  @override
-  State<_RootNavScreen> createState() => _RootNavScreenState();
-}
-
-class _RootNavScreenState extends State<_RootNavScreen> {
+class _MainAppShellState extends State<MainAppShell> {
   int _currentIndex = 0;
 
-  static final List<Widget> _tabs = <Widget>[
-    const HomeScreen(),
-    const PrayerScreen(),
-    const CommunityScreen(),
-    const ProfileScreen(),
-  ];
+  Widget _getCurrentTab() {
+    switch (_currentIndex) {
+      case 0:
+        return const HomeScreen();
+      case 1:
+        return const PrayerScreen();
+      case 2:
+        return const CommunityScreen();
+      case 3:
+        return const ProfileScreen();
+      default:
+        return const HomeScreen();
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _tabs[_currentIndex],
+      body: _getCurrentTab(),
       bottomNavigationBar: BottomNavigationBar(
+        type: BottomNavigationBarType.fixed,
         currentIndex: _currentIndex,
         onTap: (index) => setState(() => _currentIndex = index),
         items: const [

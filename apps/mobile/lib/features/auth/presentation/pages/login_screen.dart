@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
 import 'signup_screen.dart';
 import 'forgot_password_screen.dart';
+import '../../../../app/main_app_shell.dart';
+import '../../../../app/app_theme.dart';
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+class LoginScreen extends StatefulWidget {
+  const LoginScreen({super.key});
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  State<LoginScreen> createState() => _LoginScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _LoginScreenState extends State<LoginScreen> {
   bool isPasswordVisible = false;
 
   final TextEditingController emailController = TextEditingController();
@@ -24,8 +26,11 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final isDark = theme.brightness == Brightness.dark;
+    
     return Scaffold(
-      backgroundColor: const Color(0xFFF7FAF9),
+      backgroundColor: theme.scaffoldBackgroundColor,
       body: SafeArea(
         child: Center(
           child: SingleChildScrollView(
@@ -34,62 +39,97 @@ class _HomeScreenState extends State<HomeScreen> {
               children: [
 
                 /// 🔝 LOGO
-                CircleAvatar(
-                  radius: 40,
-                  backgroundColor: const Color(0xFF1EB980).withOpacity(0.2),
+                Container(
+                  width: 80,
+                  height: 80,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: AppTheme.primaryGreen.withValues(alpha: 0.1),
+                    border: isDark 
+                        ? Border.all(color: AppTheme.primaryGreen.withValues(alpha: 0.3), width: 1)
+                        : null,
+                    boxShadow: isDark ? null : [
+                      BoxShadow(
+                        color: AppTheme.primaryGreen.withValues(alpha: 0.2),
+                        blurRadius: 20,
+                        offset: const Offset(0, 8),
+                      ),
+                    ],
+                  ),
                   child: const Icon(
                     Icons.mosque,
                     size: 40,
-                    color: Color(0xFF1EB980),
+                    color: AppTheme.primaryGreen,
                   ),
                 ),
 
-                const SizedBox(height: 20),
+                const SizedBox(height: 24),
 
                 /// TITLE
-                const Text(
+                Text(
                   "Masjid App",
-                  style: TextStyle(
+                  style: theme.textTheme.headlineSmall?.copyWith(
                     fontSize: 28,
-                    fontWeight: FontWeight.bold,
+                    color: theme.colorScheme.onSurface,
                   ),
                 ),
 
-                const SizedBox(height: 10),
+                const SizedBox(height: 8),
 
-                const Text(
+                Text(
                   "Connecting the Ummah, one prayer at a time.",
                   textAlign: TextAlign.center,
-                  style: TextStyle(color: Colors.grey),
+                  style: theme.textTheme.bodyMedium?.copyWith(
+                    color: theme.colorScheme.onSurface.withValues(alpha: 0.7),
+                  ),
                 ),
 
-                const SizedBox(height: 30),
+                const SizedBox(height: 32),
 
                 /// EMAIL LABEL
-                const Align(
+                Align(
                   alignment: Alignment.centerLeft,
                   child: Text(
                     "Email Address",
-                    style: TextStyle(fontWeight: FontWeight.w600),
+                    style: theme.textTheme.labelLarge?.copyWith(
+                      color: theme.colorScheme.onSurface,
+                    ),
                   ),
                 ),
 
                 const SizedBox(height: 8),
 
                 /// EMAIL FIELD
-                TextField(
-                  controller: emailController,
-                  keyboardType: TextInputType.emailAddress,
-                  decoration: InputDecoration(
-                    hintText: "name@example.com",
-                    prefixIcon: const Icon(Icons.email),
-                    filled: true,
-                    fillColor: Colors.white,
-                    contentPadding:
-                        const EdgeInsets.symmetric(vertical: 18),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(15),
-                      borderSide: BorderSide.none,
+                Container(
+                  decoration: BoxDecoration(
+                    color: theme.cardColor,
+                    borderRadius: BorderRadius.circular(12),
+                    border: isDark 
+                        ? Border.all(color: theme.colorScheme.outline.withValues(alpha: 0.3))
+                        : null,
+                    boxShadow: isDark ? null : [
+                      BoxShadow(
+                        color: Colors.black.withValues(alpha: 0.05),
+                        blurRadius: 8,
+                        offset: const Offset(0, 2),
+                      ),
+                    ],
+                  ),
+                  child: TextField(
+                    controller: emailController,
+                    keyboardType: TextInputType.emailAddress,
+                    style: theme.textTheme.bodyMedium,
+                    decoration: InputDecoration(
+                      hintText: "name@example.com",
+                      hintStyle: theme.textTheme.bodyMedium?.copyWith(
+                        color: theme.colorScheme.onSurface.withValues(alpha: 0.5),
+                      ),
+                      prefixIcon: Icon(
+                        Icons.email_outlined,
+                        color: AppTheme.primaryGreen,
+                      ),
+                      border: InputBorder.none,
+                      contentPadding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
                     ),
                   ),
                 ),
@@ -100,13 +140,12 @@ class _HomeScreenState extends State<HomeScreen> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-
-                    const Text(
+                    Text(
                       "Password",
-                      style: TextStyle(fontWeight: FontWeight.w600),
+                      style: theme.textTheme.labelLarge?.copyWith(
+                        color: theme.colorScheme.onSurface,
+                      ),
                     ),
-
-                    /// ✅ CORRECT SCREEN LINK
                     GestureDetector(
                       onTap: () {
                         Navigator.push(
@@ -116,10 +155,10 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                         );
                       },
-                      child: const Text(
+                      child: Text(
                         "Forgot Password?",
-                        style: TextStyle(
-                          color: Color(0xFF1EB980),
+                        style: theme.textTheme.labelMedium?.copyWith(
+                          color: AppTheme.primaryGreen,
                           fontWeight: FontWeight.w500,
                         ),
                       ),
@@ -130,75 +169,121 @@ class _HomeScreenState extends State<HomeScreen> {
                 const SizedBox(height: 8),
 
                 /// PASSWORD FIELD
-                TextField(
-                  controller: passwordController,
-                  obscureText: !isPasswordVisible,
-                  decoration: InputDecoration(
-                    hintText: "Enter your password",
-                    prefixIcon: const Icon(Icons.lock),
-                    suffixIcon: IconButton(
-                      icon: Icon(
-                        isPasswordVisible
-                            ? Icons.visibility
-                            : Icons.visibility_off,
+                Container(
+                  decoration: BoxDecoration(
+                    color: theme.cardColor,
+                    borderRadius: BorderRadius.circular(12),
+                    border: isDark 
+                        ? Border.all(color: theme.colorScheme.outline.withValues(alpha: 0.3))
+                        : null,
+                    boxShadow: isDark ? null : [
+                      BoxShadow(
+                        color: Colors.black.withValues(alpha: 0.05),
+                        blurRadius: 8,
+                        offset: const Offset(0, 2),
                       ),
-                      onPressed: () {
-                        setState(() {
-                          isPasswordVisible = !isPasswordVisible;
-                        });
-                      },
-                    ),
-                    filled: true,
-                    fillColor: Colors.white,
-                    contentPadding:
-                        const EdgeInsets.symmetric(vertical: 18),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(15),
-                      borderSide: BorderSide.none,
+                    ],
+                  ),
+                  child: TextField(
+                    controller: passwordController,
+                    obscureText: !isPasswordVisible,
+                    style: theme.textTheme.bodyMedium,
+                    decoration: InputDecoration(
+                      hintText: "Enter your password",
+                      hintStyle: theme.textTheme.bodyMedium?.copyWith(
+                        color: theme.colorScheme.onSurface.withValues(alpha: 0.5),
+                      ),
+                      prefixIcon: Icon(
+                        Icons.lock_outline,
+                        color: AppTheme.primaryGreen,
+                      ),
+                      suffixIcon: IconButton(
+                        icon: Icon(
+                          isPasswordVisible
+                              ? Icons.visibility_outlined
+                              : Icons.visibility_off_outlined,
+                          color: theme.colorScheme.onSurface.withValues(alpha: 0.6),
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            isPasswordVisible = !isPasswordVisible;
+                          });
+                        },
+                      ),
+                      border: InputBorder.none,
+                      contentPadding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
                     ),
                   ),
                 ),
 
-                const SizedBox(height: 25),
+                const SizedBox(height: 24),
 
                 /// SIGN IN BUTTON
                 SizedBox(
                   width: double.infinity,
-                  height: 55,
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFF1EB980),
+                  height: 52,
+                  child: FilledButton(
+                    style: FilledButton.styleFrom(
+                      backgroundColor: AppTheme.primaryGreen,
+                      foregroundColor: Colors.white,
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(30),
+                        borderRadius: BorderRadius.circular(12),
                       ),
+                      textStyle: theme.textTheme.labelLarge,
                     ),
                     onPressed: () {
                       String email = emailController.text;
                       String password = passwordController.text;
 
-                      print("Email: $email");
-                      print("Password: $password");
+                      // Basic validation
+                      if (email.isEmpty || password.isEmpty) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: const Text('Please enter email and password'),
+                            backgroundColor: theme.colorScheme.error,
+                          ),
+                        );
+                        return;
+                      }
 
-                      /// 👉 Next step: Firebase Auth
+                      // TODO: Backend team - Replace with actual authentication
+                      // For now, navigate to main app
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) => const MainAppShell(),
+                        ),
+                      );
                     },
-                    child: const Text(
-                      "Sign In",
-                      style: TextStyle(fontSize: 16),
-                    ),
+                    child: const Text("Sign In"),
                   ),
                 ),
 
-                const SizedBox(height: 25),
+                const SizedBox(height: 24),
 
                 /// DIVIDER
                 Row(
-                  children: const [
-                    Expanded(child: Divider()),
-                    Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 10),
-                      child: Text("OR CONTINUE WITH"),
+                  children: [
+                    Expanded(
+                      child: Divider(
+                        color: theme.colorScheme.onSurface.withValues(alpha: 0.2),
+                      ),
                     ),
-                    Expanded(child: Divider()),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                      child: Text(
+                        "OR CONTINUE WITH",
+                        style: theme.textTheme.bodySmall?.copyWith(
+                          color: theme.colorScheme.onSurface.withValues(alpha: 0.6),
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      child: Divider(
+                        color: theme.colorScheme.onSurface.withValues(alpha: 0.2),
+                      ),
+                    ),
                   ],
                 ),
 
@@ -207,44 +292,60 @@ class _HomeScreenState extends State<HomeScreen> {
                 /// SOCIAL BUTTONS
                 Row(
                   children: [
-
                     Expanded(
                       child: OutlinedButton(
                         onPressed: () {},
                         style: OutlinedButton.styleFrom(
-                          padding: const EdgeInsets.symmetric(vertical: 15),
+                          padding: const EdgeInsets.symmetric(vertical: 14),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(12),
                           ),
+                          side: BorderSide(
+                            color: theme.colorScheme.outline.withValues(alpha: 0.3),
+                          ),
+                          foregroundColor: theme.colorScheme.onSurface,
                         ),
-                        child: const Text("Google"),
+                        child: Text(
+                          "Google",
+                          style: theme.textTheme.labelLarge,
+                        ),
                       ),
                     ),
-
-                    const SizedBox(width: 10),
-
+                    const SizedBox(width: 12),
                     Expanded(
                       child: OutlinedButton(
                         onPressed: () {},
                         style: OutlinedButton.styleFrom(
-                          padding: const EdgeInsets.symmetric(vertical: 15),
+                          padding: const EdgeInsets.symmetric(vertical: 14),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(12),
                           ),
+                          side: BorderSide(
+                            color: theme.colorScheme.outline.withValues(alpha: 0.3),
+                          ),
+                          foregroundColor: theme.colorScheme.onSurface,
                         ),
-                        child: const Text("Apple"),
+                        child: Text(
+                          "Apple",
+                          style: theme.textTheme.labelLarge,
+                        ),
                       ),
                     ),
                   ],
                 ),
 
-                const SizedBox(height: 25),
+                const SizedBox(height: 24),
 
                 /// SIGN UP
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const Text("Don't have an account? "),
+                    Text(
+                      "Don't have an account? ",
+                      style: theme.textTheme.bodyMedium?.copyWith(
+                        color: theme.colorScheme.onSurface.withValues(alpha: 0.7),
+                      ),
+                    ),
                     GestureDetector(
                       onTap: () {
                         Navigator.push(
@@ -254,15 +355,36 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                         );
                       },
-                      child: const Text(
+                      child: Text(
                         "Create Account",
-                        style: TextStyle(
-                          color: Color(0xFF1EB980),
-                          fontWeight: FontWeight.bold,
+                        style: theme.textTheme.labelLarge?.copyWith(
+                          color: AppTheme.primaryGreen,
+                          fontWeight: FontWeight.w600,
                         ),
                       ),
                     ),
                   ],
+                ),
+
+                const SizedBox(height: 16),
+
+                /// SKIP LOGIN (FOR TESTING)
+                TextButton(
+                  onPressed: () {
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) => const MainAppShell(),
+                      ),
+                    );
+                  },
+                  child: Text(
+                    "Skip for now",
+                    style: theme.textTheme.bodyMedium?.copyWith(
+                      color: theme.colorScheme.onSurface.withValues(alpha: 0.6),
+                      decoration: TextDecoration.underline,
+                    ),
+                  ),
                 ),
               ],
             ),

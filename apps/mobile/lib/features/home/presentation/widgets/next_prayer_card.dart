@@ -14,46 +14,87 @@ class NextPrayerCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final isDark = theme.brightness == Brightness.dark;
+    
     return Container(
       width: double.infinity,
-      padding: const EdgeInsets.all(16),
+      padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(16),
         color: AppTheme.primaryGreen,
+        border: isDark 
+            ? Border.all(color: AppTheme.primaryGreen.withValues(alpha: 0.3))
+            : null,
+        boxShadow: isDark ? null : [
+          BoxShadow(
+            color: AppTheme.primaryGreen.withValues(alpha: 0.3),
+            blurRadius: 20,
+            offset: const Offset(0, 8),
+          ),
+        ],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
             'NEXT PRAYER',
-            style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                  color: Colors.white70,
-                ),
+            style: theme.textTheme.labelMedium?.copyWith(
+              color: Colors.white.withValues(alpha: 0.8),
+              fontWeight: FontWeight.w600,
+              letterSpacing: 1.2,
+            ),
           ),
           const SizedBox(height: 8),
           Text(
             prayerName,
-            style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                  color: Colors.white,
-                  fontSize: 34,
-                ),
+            style: theme.textTheme.headlineSmall?.copyWith(
+              color: Colors.white,
+              fontSize: 32,
+              fontWeight: FontWeight.w700,
+            ),
           ),
-          const SizedBox(height: 6),
+          const SizedBox(height: 4),
           Text(
             countdown,
-            style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                  color: Colors.white,
-                ),
-          ),
-          const SizedBox(height: 12),
-          FilledButton.icon(
-            style: FilledButton.styleFrom(
-              backgroundColor: Colors.white,
-              foregroundColor: AppTheme.primaryGreen,
+            style: theme.textTheme.bodyLarge?.copyWith(
+              color: Colors.white.withValues(alpha: 0.9),
+              fontWeight: FontWeight.w500,
             ),
-            onPressed: () {},
-            icon: const Icon(Icons.alarm_rounded, size: 18),
-            label: const Text('Set Reminder'),
+          ),
+          const SizedBox(height: 16),
+          Container(
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(12),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withValues(alpha: 0.1),
+                  blurRadius: 8,
+                  offset: const Offset(0, 2),
+                ),
+              ],
+            ),
+            child: FilledButton.icon(
+              style: FilledButton.styleFrom(
+                backgroundColor: Colors.white,
+                foregroundColor: AppTheme.primaryGreen,
+                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                elevation: 0,
+              ),
+              onPressed: () {},
+              icon: const Icon(Icons.notifications_outlined, size: 18),
+              label: Text(
+                'Set Reminder',
+                style: theme.textTheme.labelLarge?.copyWith(
+                  color: AppTheme.primaryGreen,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+            ),
           ),
         ],
       ),

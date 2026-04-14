@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../../app/app_theme.dart';
 
 class ForgotPasswordScreen extends StatefulWidget {
   const ForgotPasswordScreen({super.key});
@@ -12,26 +13,38 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
   final TextEditingController emailController = TextEditingController();
 
   @override
+  void dispose() {
+    emailController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final isDark = theme.brightness == Brightness.dark;
+    
     return Scaffold(
-      backgroundColor: const Color(0xFFF7FAF9),
+      backgroundColor: theme.scaffoldBackgroundColor,
       body: Stack(
         children: [
 
           /// 🔝 GREEN HEADER
           Container(
             height: 220,
-            decoration: const BoxDecoration(
+            decoration: BoxDecoration(
               gradient: LinearGradient(
                 colors: [
-                  Color(0xFF1EB980),
-                  Color(0xFF18A76F),
+                  AppTheme.primaryGreen,
+                  AppTheme.primaryGreen.withValues(alpha: 0.8),
                 ],
               ),
-              borderRadius: BorderRadius.only(
+              borderRadius: const BorderRadius.only(
                 bottomLeft: Radius.circular(40),
                 bottomRight: Radius.circular(40),
               ),
+              border: isDark 
+                  ? Border.all(color: AppTheme.primaryGreen.withValues(alpha: 0.3))
+                  : null,
             ),
           ),
 
@@ -40,8 +53,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
             child: Padding(
               padding: const EdgeInsets.all(16),
               child: CircleAvatar(
-                // ignore: deprecated_member_use
-                backgroundColor: Colors.white.withOpacity(0.2),
+                backgroundColor: Colors.white.withValues(alpha: 0.2),
                 child: IconButton(
                   icon: const Icon(Icons.arrow_back, color: Colors.white),
                   onPressed: () {
@@ -59,13 +71,16 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
               margin: const EdgeInsets.all(16),
               padding: const EdgeInsets.all(20),
               decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(25),
-                boxShadow: [
+                color: theme.cardColor,
+                borderRadius: BorderRadius.circular(16),
+                border: isDark 
+                    ? Border.all(color: theme.colorScheme.outline.withValues(alpha: 0.3))
+                    : null,
+                boxShadow: isDark ? null : [
                   BoxShadow(
-                    // ignore: deprecated_member_use
-                    color: Colors.black.withOpacity(0.05),
-                    blurRadius: 10,
+                    color: Colors.black.withValues(alpha: 0.05),
+                    blurRadius: 20,
+                    offset: const Offset(0, 8),
                   ),
                 ],
               ),
@@ -78,13 +93,15 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                   Container(
                     padding: const EdgeInsets.all(12),
                     decoration: BoxDecoration(
-                      // ignore: deprecated_member_use
-                      color: const Color(0xFF1EB980).withOpacity(0.1),
-                      borderRadius: BorderRadius.circular(15),
+                      color: AppTheme.primaryGreen.withValues(alpha: 0.1),
+                      borderRadius: BorderRadius.circular(12),
+                      border: isDark 
+                          ? Border.all(color: AppTheme.primaryGreen.withValues(alpha: 0.3))
+                          : null,
                     ),
                     child: const Icon(
                       Icons.lock_reset,
-                      color: Color(0xFF1EB980),
+                      color: AppTheme.primaryGreen,
                       size: 28,
                     ),
                   ),
@@ -92,45 +109,67 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                   const SizedBox(height: 20),
 
                   /// TITLE
-                  const Text(
+                  Text(
                     "Forgot Password",
-                    style: TextStyle(
-                      fontSize: 26,
-                      fontWeight: FontWeight.bold,
+                    style: theme.textTheme.headlineSmall?.copyWith(
+                      color: theme.colorScheme.onSurface,
+                      fontWeight: FontWeight.w700,
                     ),
                   ),
 
                   const SizedBox(height: 10),
 
                   /// SUBTEXT
-                  const Text(
+                  Text(
                     "Enter your email to receive a password reset link for your Masjid account.",
-                    style: TextStyle(color: Colors.grey),
+                    style: theme.textTheme.bodyMedium?.copyWith(
+                      color: theme.colorScheme.onSurface.withValues(alpha: 0.7),
+                    ),
                   ),
 
                   const SizedBox(height: 25),
 
                   /// EMAIL LABEL
-                  const Text(
+                  Text(
                     "Email Address",
-                    style: TextStyle(fontWeight: FontWeight.w600),
+                    style: theme.textTheme.labelLarge?.copyWith(
+                      color: theme.colorScheme.onSurface,
+                    ),
                   ),
 
                   const SizedBox(height: 8),
 
                   /// EMAIL FIELD
-                  TextField(
-                    controller: emailController,
-                    decoration: InputDecoration(
-                      hintText: "example@masjid.com",
-                      prefixIcon: const Icon(Icons.email),
-                      filled: true,
-                      fillColor: const Color(0xFFF7FAF9),
-                      contentPadding:
-                          const EdgeInsets.symmetric(vertical: 18),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(15),
-                        borderSide: BorderSide.none,
+                  Container(
+                    decoration: BoxDecoration(
+                      color: theme.cardColor,
+                      borderRadius: BorderRadius.circular(12),
+                      border: isDark 
+                          ? Border.all(color: theme.colorScheme.outline.withValues(alpha: 0.3))
+                          : null,
+                      boxShadow: isDark ? null : [
+                        BoxShadow(
+                          color: Colors.black.withValues(alpha: 0.05),
+                          blurRadius: 8,
+                          offset: const Offset(0, 2),
+                        ),
+                      ],
+                    ),
+                    child: TextField(
+                      controller: emailController,
+                      keyboardType: TextInputType.emailAddress,
+                      style: theme.textTheme.bodyMedium,
+                      decoration: InputDecoration(
+                        hintText: "example@masjid.com",
+                        hintStyle: theme.textTheme.bodyMedium?.copyWith(
+                          color: theme.colorScheme.onSurface.withValues(alpha: 0.5),
+                        ),
+                        prefixIcon: Icon(
+                          Icons.email_outlined,
+                          color: AppTheme.primaryGreen,
+                        ),
+                        border: InputBorder.none,
+                        contentPadding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
                       ),
                     ),
                   ),
@@ -140,27 +179,42 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                   /// SEND BUTTON
                   SizedBox(
                     width: double.infinity,
-                    height: 55,
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color(0xFF1EB980),
+                    height: 52,
+                    child: FilledButton(
+                      style: FilledButton.styleFrom(
+                        backgroundColor: AppTheme.primaryGreen,
+                        foregroundColor: Colors.white,
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(30),
+                          borderRadius: BorderRadius.circular(12),
                         ),
+                        textStyle: theme.textTheme.labelLarge,
                       ),
                       onPressed: () {
-                        String _ = emailController.text;
+                        String email = emailController.text;
 
+                        if (email.isEmpty) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: const Text('Please enter your email address'),
+                              backgroundColor: theme.colorScheme.error,
+                            ),
+                          );
+                          return;
+                        }
 
                         ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                            content: Text("Reset link sent!"),
+                          SnackBar(
+                            content: const Text("Reset link sent to your email!"),
+                            backgroundColor: AppTheme.primaryGreen,
                           ),
                         );
                       },
-                      child: const Text(
+                      child: Text(
                         "Send Reset Link ➤",
-                        style: TextStyle(fontSize: 16),
+                        style: theme.textTheme.labelLarge?.copyWith(
+                          color: Colors.white,
+                          fontWeight: FontWeight.w600,
+                        ),
                       ),
                     ),
                   ),
@@ -168,7 +222,9 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                   const SizedBox(height: 25),
 
                   /// DIVIDER
-                  const Divider(),
+                  Divider(
+                    color: theme.colorScheme.onSurface.withValues(alpha: 0.2),
+                  ),
 
                   const SizedBox(height: 10),
 
@@ -176,20 +232,22 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                   Center(
                     child: Column(
                       children: [
-                        const Text(
+                        Text(
                           "Remembered your password?",
-                          style: TextStyle(color: Colors.grey),
+                          style: theme.textTheme.bodyMedium?.copyWith(
+                            color: theme.colorScheme.onSurface.withValues(alpha: 0.7),
+                          ),
                         ),
                         const SizedBox(height: 5),
                         GestureDetector(
                           onTap: () {
                             Navigator.pop(context);
                           },
-                          child: const Text(
+                          child: Text(
                             "Back to Login",
-                            style: TextStyle(
-                              color: Color(0xFF1EB980),
-                              fontWeight: FontWeight.bold,
+                            style: theme.textTheme.labelLarge?.copyWith(
+                              color: AppTheme.primaryGreen,
+                              fontWeight: FontWeight.w600,
                             ),
                           ),
                         ),

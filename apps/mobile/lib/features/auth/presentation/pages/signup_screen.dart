@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'login_screen.dart';
+import '../../../../app/main_app_shell.dart';
+import '../../../../app/app_theme.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
@@ -16,34 +18,48 @@ class _SignUpScreenState extends State<SignUpScreen> {
   final TextEditingController passwordController = TextEditingController();
 
   @override
+  void dispose() {
+    nameController.dispose();
+    emailController.dispose();
+    passwordController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final isDark = theme.brightness == Brightness.dark;
+    
     return Scaffold(
-      backgroundColor: const Color(0xFFF7FAF9),
+      backgroundColor: theme.scaffoldBackgroundColor,
       body: SafeArea(
         child: Column(
           children: [
 
             /// 🔝 TOP BAR
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10),
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
               child: Row(
                 children: [
                   IconButton(
-                    icon: const Icon(Icons.arrow_back),
+                    icon: Icon(
+                      Icons.arrow_back,
+                      color: theme.colorScheme.onSurface,
+                    ),
                     onPressed: () {
                       Navigator.pop(context);
                     },
                   ),
                   const Spacer(),
-                  const Text(
+                  Text(
                     "Create Account",
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
+                    style: theme.textTheme.titleMedium?.copyWith(
+                      color: theme.colorScheme.onSurface,
+                      fontWeight: FontWeight.w700,
                     ),
                   ),
                   const Spacer(),
-                  const SizedBox(width: 40),
+                  const SizedBox(width: 48),
                 ],
               ),
             ),
@@ -55,61 +71,97 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 child: Column(
                   children: [
 
-                    /// ICON
-                    CircleAvatar(
-                      radius: 40,
-                      backgroundColor:
-                          const Color(0xFF1EB980).withOpacity(0.2),
+                    /// LOGO
+                    Container(
+                      width: 80,
+                      height: 80,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: AppTheme.primaryGreen.withValues(alpha: 0.1),
+                        border: isDark 
+                            ? Border.all(color: AppTheme.primaryGreen.withValues(alpha: 0.3), width: 1)
+                            : null,
+                        boxShadow: isDark ? null : [
+                          BoxShadow(
+                            color: AppTheme.primaryGreen.withValues(alpha: 0.2),
+                            blurRadius: 20,
+                            offset: const Offset(0, 8),
+                          ),
+                        ],
+                      ),
                       child: const Icon(
                         Icons.mosque,
                         size: 40,
-                        color: Color(0xFF1EB980),
+                        color: AppTheme.primaryGreen,
                       ),
                     ),
 
-                    const SizedBox(height: 20),
+                    const SizedBox(height: 24),
 
                     /// TITLE
-                    const Text(
+                    Text(
                       "Join our\nCommunity",
                       textAlign: TextAlign.center,
-                      style: TextStyle(
+                      style: theme.textTheme.headlineSmall?.copyWith(
                         fontSize: 28,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-
-                    const SizedBox(height: 10),
-
-                    const Text(
-                      "Sign up to stay connected with your Masjid",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(color: Colors.grey),
-                    ),
-
-                    const SizedBox(height: 30),
-
-                    /// FULL NAME
-                    const Align(
-                      alignment: Alignment.centerLeft,
-                      child: Text(
-                        "Full Name",
-                        style: TextStyle(fontWeight: FontWeight.w600),
+                        color: theme.colorScheme.onSurface,
                       ),
                     ),
 
                     const SizedBox(height: 8),
 
-                    TextField(
-                      controller: nameController,
-                      decoration: InputDecoration(
-                        hintText: "Enter your full name",
-                        prefixIcon: const Icon(Icons.person),
-                        filled: true,
-                        fillColor: Colors.white,
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(15),
-                          borderSide: BorderSide.none,
+                    Text(
+                      "Sign up to stay connected with your Masjid",
+                      textAlign: TextAlign.center,
+                      style: theme.textTheme.bodyMedium?.copyWith(
+                        color: theme.colorScheme.onSurface.withValues(alpha: 0.7),
+                      ),
+                    ),
+
+                    const SizedBox(height: 32),
+
+                    /// FULL NAME
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        "Full Name",
+                        style: theme.textTheme.labelLarge?.copyWith(
+                          color: theme.colorScheme.onSurface,
+                        ),
+                      ),
+                    ),
+
+                    const SizedBox(height: 8),
+
+                    Container(
+                      decoration: BoxDecoration(
+                        color: theme.cardColor,
+                        borderRadius: BorderRadius.circular(12),
+                        border: isDark 
+                            ? Border.all(color: theme.colorScheme.outline.withValues(alpha: 0.3))
+                            : null,
+                        boxShadow: isDark ? null : [
+                          BoxShadow(
+                            color: Colors.black.withValues(alpha: 0.05),
+                            blurRadius: 8,
+                            offset: const Offset(0, 2),
+                          ),
+                        ],
+                      ),
+                      child: TextField(
+                        controller: nameController,
+                        style: theme.textTheme.bodyMedium,
+                        decoration: InputDecoration(
+                          hintText: "Enter your full name",
+                          hintStyle: theme.textTheme.bodyMedium?.copyWith(
+                            color: theme.colorScheme.onSurface.withValues(alpha: 0.5),
+                          ),
+                          prefixIcon: Icon(
+                            Icons.person_outline,
+                            color: AppTheme.primaryGreen,
+                          ),
+                          border: InputBorder.none,
+                          contentPadding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
                         ),
                       ),
                     ),
@@ -117,26 +169,48 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     const SizedBox(height: 20),
 
                     /// EMAIL
-                    const Align(
+                    Align(
                       alignment: Alignment.centerLeft,
                       child: Text(
                         "Email Address",
-                        style: TextStyle(fontWeight: FontWeight.w600),
+                        style: theme.textTheme.labelLarge?.copyWith(
+                          color: theme.colorScheme.onSurface,
+                        ),
                       ),
                     ),
 
                     const SizedBox(height: 8),
 
-                    TextField(
-                      controller: emailController,
-                      decoration: InputDecoration(
-                        hintText: "example@email.com",
-                        prefixIcon: const Icon(Icons.email),
-                        filled: true,
-                        fillColor: Colors.white,
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(15),
-                          borderSide: BorderSide.none,
+                    Container(
+                      decoration: BoxDecoration(
+                        color: theme.cardColor,
+                        borderRadius: BorderRadius.circular(12),
+                        border: isDark 
+                            ? Border.all(color: theme.colorScheme.outline.withValues(alpha: 0.3))
+                            : null,
+                        boxShadow: isDark ? null : [
+                          BoxShadow(
+                            color: Colors.black.withValues(alpha: 0.05),
+                            blurRadius: 8,
+                            offset: const Offset(0, 2),
+                          ),
+                        ],
+                      ),
+                      child: TextField(
+                        controller: emailController,
+                        keyboardType: TextInputType.emailAddress,
+                        style: theme.textTheme.bodyMedium,
+                        decoration: InputDecoration(
+                          hintText: "example@email.com",
+                          hintStyle: theme.textTheme.bodyMedium?.copyWith(
+                            color: theme.colorScheme.onSurface.withValues(alpha: 0.5),
+                          ),
+                          prefixIcon: Icon(
+                            Icons.email_outlined,
+                            color: AppTheme.primaryGreen,
+                          ),
+                          border: InputBorder.none,
+                          contentPadding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
                         ),
                       ),
                     ),
@@ -144,135 +218,233 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     const SizedBox(height: 20),
 
                     /// PASSWORD
-                    const Align(
+                    Align(
                       alignment: Alignment.centerLeft,
                       child: Text(
                         "Password",
-                        style: TextStyle(fontWeight: FontWeight.w600),
+                        style: theme.textTheme.labelLarge?.copyWith(
+                          color: theme.colorScheme.onSurface,
+                        ),
                       ),
                     ),
 
                     const SizedBox(height: 8),
 
-                    TextField(
-                      controller: passwordController,
-                      obscureText: !isPasswordVisible,
-                      decoration: InputDecoration(
-                        hintText: "Create a password",
-                        prefixIcon: const Icon(Icons.lock),
-                        suffixIcon: IconButton(
-                          icon: Icon(
-                            isPasswordVisible
-                                ? Icons.visibility
-                                : Icons.visibility_off,
+                    Container(
+                      decoration: BoxDecoration(
+                        color: theme.cardColor,
+                        borderRadius: BorderRadius.circular(12),
+                        border: isDark 
+                            ? Border.all(color: theme.colorScheme.outline.withValues(alpha: 0.3))
+                            : null,
+                        boxShadow: isDark ? null : [
+                          BoxShadow(
+                            color: Colors.black.withValues(alpha: 0.05),
+                            blurRadius: 8,
+                            offset: const Offset(0, 2),
                           ),
-                          onPressed: () {
-                            setState(() {
-                              isPasswordVisible = !isPasswordVisible;
-                            });
-                          },
-                        ),
-                        filled: true,
-                        fillColor: Colors.white,
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(15),
-                          borderSide: BorderSide.none,
+                        ],
+                      ),
+                      child: TextField(
+                        controller: passwordController,
+                        obscureText: !isPasswordVisible,
+                        style: theme.textTheme.bodyMedium,
+                        decoration: InputDecoration(
+                          hintText: "Create a password",
+                          hintStyle: theme.textTheme.bodyMedium?.copyWith(
+                            color: theme.colorScheme.onSurface.withValues(alpha: 0.5),
+                          ),
+                          prefixIcon: Icon(
+                            Icons.lock_outline,
+                            color: AppTheme.primaryGreen,
+                          ),
+                          suffixIcon: IconButton(
+                            icon: Icon(
+                              isPasswordVisible
+                                  ? Icons.visibility_outlined
+                                  : Icons.visibility_off_outlined,
+                              color: theme.colorScheme.onSurface.withValues(alpha: 0.6),
+                            ),
+                            onPressed: () {
+                              setState(() {
+                                isPasswordVisible = !isPasswordVisible;
+                              });
+                            },
+                          ),
+                          border: InputBorder.none,
+                          contentPadding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
                         ),
                       ),
                     ),
 
                     const SizedBox(height: 8),
 
-                    const Align(
+                    Align(
                       alignment: Alignment.centerLeft,
                       child: Text(
                         "Must be at least 8 characters long",
-                        style: TextStyle(color: Colors.grey, fontSize: 12),
+                        style: theme.textTheme.bodySmall?.copyWith(
+                          color: theme.colorScheme.onSurface.withValues(alpha: 0.6),
+                        ),
                       ),
                     ),
 
-                    const SizedBox(height: 25),
+                    const SizedBox(height: 24),
 
                     /// CREATE ACCOUNT BUTTON
                     SizedBox(
                       width: double.infinity,
-                      height: 55,
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: const Color(0xFF1EB980),
+                      height: 52,
+                      child: FilledButton(
+                        style: FilledButton.styleFrom(
+                          backgroundColor: AppTheme.primaryGreen,
+                          foregroundColor: Colors.white,
                           shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(30),
+                            borderRadius: BorderRadius.circular(12),
                           ),
+                          textStyle: theme.textTheme.labelLarge,
                         ),
                         onPressed: () {
-                          print(nameController.text);
-                          print(emailController.text);
-                          print(passwordController.text);
+                          String name = nameController.text;
+                          String email = emailController.text;
+                          String password = passwordController.text;
+
+                          // Basic validation
+                          if (name.isEmpty || email.isEmpty || password.isEmpty) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: const Text('Please fill all fields'),
+                                backgroundColor: theme.colorScheme.error,
+                              ),
+                            );
+                            return;
+                          }
+
+                          if (password.length < 8) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: const Text('Password must be at least 8 characters'),
+                                backgroundColor: theme.colorScheme.error,
+                              ),
+                            );
+                            return;
+                          }
+
+                          // TODO: Backend team - Replace with actual signup
+                          // For now, navigate to main app
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                              builder: (_) => const MainAppShell(),
+                            ),
+                          );
                         },
-                        child: const Text(
-                          "Create Account →",
-                          style: TextStyle(fontSize: 16),
-                        ),
+                        child: const Text("Create Account"),
                       ),
+                    ),
+
+                    const SizedBox(height: 24),
+
+                    /// DIVIDER
+                    Row(
+                      children: [
+                        Expanded(
+                          child: Divider(
+                            color: theme.colorScheme.onSurface.withValues(alpha: 0.2),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 16),
+                          child: Text(
+                            "OR SIGN UP WITH",
+                            style: theme.textTheme.bodySmall?.copyWith(
+                              color: theme.colorScheme.onSurface.withValues(alpha: 0.6),
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                        ),
+                        Expanded(
+                          child: Divider(
+                            color: theme.colorScheme.onSurface.withValues(alpha: 0.2),
+                          ),
+                        ),
+                      ],
                     ),
 
                     const SizedBox(height: 20),
 
-                    /// LOGIN LINK
+                    /// SOCIAL BUTTONS
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        const Text("Already have an account? "),
-                        GestureDetector(
-                          onTap: () {
-                            Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                builder: (_) => const HomeScreen(),
+                        Expanded(
+                          child: OutlinedButton(
+                            onPressed: () {},
+                            style: OutlinedButton.styleFrom(
+                              padding: const EdgeInsets.symmetric(vertical: 14),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(12),
                               ),
-                            );
-                          },
-                          child: const Text(
-                            "Login",
-                            style: TextStyle(
-                              color: Color(0xFF1EB980),
-                              fontWeight: FontWeight.bold,
+                              side: BorderSide(
+                                color: theme.colorScheme.outline.withValues(alpha: 0.3),
+                              ),
+                              foregroundColor: theme.colorScheme.onSurface,
+                            ),
+                            child: Text(
+                              "Google",
+                              style: theme.textTheme.labelLarge,
+                            ),
+                          ),
+                        ),
+                        const SizedBox(width: 12),
+                        Expanded(
+                          child: OutlinedButton(
+                            onPressed: () {},
+                            style: OutlinedButton.styleFrom(
+                              padding: const EdgeInsets.symmetric(vertical: 14),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                              side: BorderSide(
+                                color: theme.colorScheme.outline.withValues(alpha: 0.3),
+                              ),
+                              foregroundColor: theme.colorScheme.onSurface,
+                            ),
+                            child: Text(
+                              "Apple",
+                              style: theme.textTheme.labelLarge,
                             ),
                           ),
                         ),
                       ],
                     ),
 
-                    const SizedBox(height: 20),
+                    const SizedBox(height: 24),
 
-                    /// DIVIDER
+                    /// LOGIN LINK
                     Row(
-                      children: const [
-                        Expanded(child: Divider()),
-                        Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 10),
-                          child: Text("Or sign up with"),
-                        ),
-                        Expanded(child: Divider()),
-                      ],
-                    ),
-
-                    const SizedBox(height: 20),
-
-                    /// SOCIAL
-                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Expanded(
-                          child: OutlinedButton(
-                            onPressed: () {},
-                            child: const Text("Google"),
+                        Text(
+                          "Already have an account? ",
+                          style: theme.textTheme.bodyMedium?.copyWith(
+                            color: theme.colorScheme.onSurface.withValues(alpha: 0.7),
                           ),
                         ),
-                        const SizedBox(width: 10),
-                        Expanded(
-                          child: OutlinedButton(
-                            onPressed: () {},
-                            child: const Text("Apple"),
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                builder: (_) => const LoginScreen(),
+                              ),
+                            );
+                          },
+                          child: Text(
+                            "Login",
+                            style: theme.textTheme.labelLarge?.copyWith(
+                              color: AppTheme.primaryGreen,
+                              fontWeight: FontWeight.w600,
+                            ),
                           ),
                         ),
                       ],

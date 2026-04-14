@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../../app/app_theme.dart';
 import '../widgets/announcement_card.dart';
 import '../widgets/class_card.dart';
 import '../widgets/khutbah_card.dart';
@@ -10,6 +11,8 @@ class CommunityScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    
     return DefaultTabController(
       length: 4,
       child: SafeArea(
@@ -20,17 +23,35 @@ class CommunityScreen extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text('Community', style: Theme.of(context).textTheme.headlineSmall),
-                  const Icon(Icons.groups_rounded),
+                  Text(
+                    'Community', 
+                    style: theme.textTheme.headlineSmall?.copyWith(
+                      color: theme.colorScheme.onSurface,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                  Icon(
+                    Icons.groups_rounded,
+                    color: AppTheme.primaryGreen,
+                  ),
                 ],
               ),
             ),
-            const Padding(
-              padding: EdgeInsets.fromLTRB(16, 10, 16, 8),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(16, 16, 16, 8),
               child: TabBar(
                 isScrollable: true,
                 tabAlignment: TabAlignment.start,
-                tabs: [
+                labelColor: AppTheme.primaryGreen,
+                unselectedLabelColor: theme.colorScheme.onSurface.withValues(alpha: 0.6),
+                indicatorColor: AppTheme.primaryGreen,
+                labelStyle: theme.textTheme.labelLarge?.copyWith(
+                  fontWeight: FontWeight.w600,
+                ),
+                unselectedLabelStyle: theme.textTheme.labelLarge?.copyWith(
+                  fontWeight: FontWeight.w500,
+                ),
+                tabs: const [
                   Tab(text: 'All'),
                   Tab(text: 'Announcements'),
                   Tab(text: 'Classes'),
