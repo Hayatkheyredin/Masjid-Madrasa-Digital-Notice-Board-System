@@ -1,5 +1,6 @@
 {
   "name": "web",
+<<<<<<< HEAD
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -36,5 +37,24 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+=======
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^6.0.1",
+    "vite": "^8.0.4"
+  },
+  "dependencies": {
+    "lucide-react": "^1.8.0",
+    "react": "^19.2.5",
+    "react-dom": "^19.2.5",
+    "react-router-dom": "^7.14.0"
+>>>>>>> 07af7c718c1f39a7e994b5ea4e6eb5bc8a6c1b4a
   }
 }
