@@ -1,15 +1,5 @@
-:root {
-  --bg: #f7f9fc;
-  --surface: #ffffff;
-  --surface-soft: #f0f4f7;
-  --text-main: #111827;
-  --text-muted: #6b7280;
-  --brand: #16b985;
-  --brand-dark: #0f9e71;
-  --border: #e5e7eb;
-  --shadow: 0 14px 32px rgba(15, 23, 42, 0.09);
-  --radius: 16px;
-}
+@import './styles/tokens.css';
+@import './styles/auth.css';
 
 *,
 *::before,
@@ -21,9 +11,9 @@ html,
 body {
   margin: 0;
   padding: 0;
-  font-family: "Inter", Arial, sans-serif;
-  background: var(--bg);
-  color: var(--text-main);
+  font-family: var(--font-sans);
+  background: var(--color-bg);
+  color: var(--color-text);
 }
 
 img {
@@ -59,7 +49,7 @@ a {
   width: 14px;
   height: 14px;
   border-radius: 50%;
-  background: linear-gradient(180deg, #39d9a2 0%, var(--brand) 100%);
+  background: linear-gradient(180deg, #39d9a2 0%, var(--color-brand) 100%);
   box-shadow: 0 0 0 4px rgba(22, 185, 133, 0.18);
 }
 
@@ -70,41 +60,44 @@ a {
   color: #4b5563;
 }
 
+/* Buttons — use with <button> or <a> / React Router <Link> */
 .btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  border-radius: 10px;
+  border-radius: var(--radius-sm);
   border: 1px solid transparent;
   height: 44px;
   padding: 0 1.2rem;
   font-weight: 600;
   font-size: 0.9rem;
-  transition: 0.2s ease;
+  font-family: inherit;
+  cursor: pointer;
+  transition: background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
-.btn-small {
+.btn--sm {
   height: 38px;
   font-size: 0.83rem;
 }
 
-.btn-primary {
-  background: var(--brand);
+.btn--primary {
+  background: var(--color-brand);
   color: #fff;
-  box-shadow: 0 10px 20px rgba(22, 185, 133, 0.28);
+  box-shadow: var(--shadow-button);
 }
 
-.btn-primary:hover {
-  background: var(--brand-dark);
+.btn--primary:hover {
+  background: var(--color-brand-dark);
 }
 
-.btn-secondary {
+.btn--secondary {
   background: #fff;
-  border-color: var(--border);
+  border-color: var(--color-border);
   color: #374151;
 }
 
-.btn-secondary:hover {
+.btn--secondary:hover {
   background: #f8fafc;
 }
 
@@ -125,13 +118,13 @@ a {
 }
 
 .hero-content h1 span {
-  color: var(--brand);
+  color: var(--color-brand);
 }
 
 .hero-content p {
   margin: 0;
   max-width: 560px;
-  color: var(--text-muted);
+  color: var(--color-text-muted);
   line-height: 1.65;
   font-size: 1.05rem;
 }
@@ -150,7 +143,7 @@ a {
   background: #f6f8fa;
   border-radius: 36px;
   border: 1px solid #edf0f4;
-  box-shadow: var(--shadow);
+  box-shadow: var(--shadow-card);
   padding: 1.1rem;
 }
 
@@ -163,7 +156,7 @@ a {
 }
 
 .device-screen::after {
-  content: "";
+  content: '';
   position: absolute;
   width: 58px;
   height: 72px;
@@ -202,7 +195,7 @@ a {
 .card {
   background: #fff;
   border: 1px solid #e6ebf0;
-  border-radius: 12px;
+  border-radius: var(--radius-md);
   padding: 1.2rem;
 }
 
@@ -246,7 +239,7 @@ a {
 }
 
 .map-placeholder {
-  border-radius: 12px;
+  border-radius: var(--radius-md);
   border: 1px dashed #c8d4df;
   min-height: 140px;
   display: grid;
@@ -256,9 +249,9 @@ a {
 }
 
 .contact-form {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
   padding: 1.3rem;
   box-shadow: 0 10px 24px rgba(15, 23, 42, 0.06);
   display: grid;
@@ -275,7 +268,7 @@ a {
 .contact-form textarea {
   width: 100%;
   border: 1px solid #dbe2ea;
-  border-radius: 10px;
+  border-radius: var(--radius-sm);
   padding: 0.75rem 0.82rem;
   font: inherit;
   color: #111827;
@@ -285,7 +278,7 @@ a {
 
 .contact-form input:focus,
 .contact-form textarea:focus {
-  border-color: var(--brand);
+  border-color: var(--color-brand);
   box-shadow: 0 0 0 4px rgba(22, 185, 133, 0.13);
 }
 
