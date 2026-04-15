@@ -5,6 +5,7 @@ import { downloadICS } from '../utils/ics';
  
 
 function AnnouncementDetail() {
+  
   const { announcementId } = useParams();
   const navigate = useNavigate();
   const announcement = announcementsById[announcementId] || announcementsById['special-eid-al-fitr'];

@@ -224,7 +224,7 @@ function Announcements() {
         </div>
       )}
 
-      {/* Load More Button (for future) */}
+      {/* Load More Button */}
       <div style={{ display: 'flex', justifyContent: 'center', marginTop: '50px' }}>
         <button style={{ 
           border: '1px solid #E2E8F0', 
