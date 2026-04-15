@@ -36,7 +36,7 @@ export default function PrayerTimePage() {
     return (
       <div className="prayer-page">
         <div className="app">
-          <Sidebar />
+          <Sidebar activeKey="prayer" />
           <main className="main">
             <div className="loading-screen">Loading prayer times for Addis Ababa...</div>
           </main>
@@ -49,7 +49,7 @@ export default function PrayerTimePage() {
     return (
       <div className="prayer-page">
         <div className="app">
-          <Sidebar />
+          <Sidebar activeKey="prayer" />
           <main className="main">
             <div className="error-message">{error}</div>
           </main>
@@ -61,7 +61,7 @@ export default function PrayerTimePage() {
   return (
     <div className="prayer-page">
       <div className="app">
-        <Sidebar />
+        <Sidebar activeKey="prayer" />
 
         <main className="main">
           <Header locationLabel={locationLabel} headerDate={headerDate} />

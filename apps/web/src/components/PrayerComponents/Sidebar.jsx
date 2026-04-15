@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import {
   Bell,
   BookOpen,
@@ -23,18 +24,31 @@ function BrandMark() {
   );
 }
 
-function NavItem({ icon, label, active = false }) {
+function NavItem({ icon, label, to, active = false }) {
+  const className = `nav-link${active ? " nav-link--active" : ""}`;
+
+  if (!to) {
+    return (
+      <a href="#" className={className}>
+        <span className="nav-link__icon" aria-hidden="true">
+          {icon}
+        </span>
+        {label}
+      </a>
+    );
+  }
+
   return (
-    <a href="#" className={`nav-link${active ? " nav-link--active" : ""}`}>
+    <Link to={to} className={className}>
       <span className="nav-link__icon" aria-hidden="true">
         {icon}
       </span>
       {label}
-    </a>
+    </Link>
   );
 }
 
-export default function Sidebar() {
+export default function Sidebar({ activeKey = "prayer" }) {
   return (
     <aside className="sidebar">
       <div className="sidebar__brand">
@@ -48,12 +62,12 @@ export default function Sidebar() {
       </div>
 
       <nav className="sidebar__nav">
-        <NavItem icon={<Home size={18} strokeWidth={2} />} label="Dashboard" />
-        <NavItem icon={<Clock3 size={18} strokeWidth={2} />} label="Prayer Times" active />
-        <NavItem icon={<Bell size={18} strokeWidth={2} />} label="Announcements" />
-        <NavItem icon={<BookOpen size={18} strokeWidth={2} />} label="Madrasa" />
-        <NavItem icon={<User size={18} strokeWidth={2} />} label="Profile" />
-        <NavItem icon={<Settings size={18} strokeWidth={2} />} label="Settings" />
+        <NavItem icon={<Home size={18} strokeWidth={2} />} label="Dashboard" to="/" active={activeKey === "dashboard"} />
+        <NavItem icon={<Clock3 size={18} strokeWidth={2} />} label="Prayer Times" to="/prayer-time" active={activeKey === "prayer"} />
+        <NavItem icon={<Bell size={18} strokeWidth={2} />} label="Announcements" active={activeKey === "announcements"} />
+        <NavItem icon={<BookOpen size={18} strokeWidth={2} />} label="Madrasa" active={activeKey === "madrasa"} />
+        <NavItem icon={<User size={18} strokeWidth={2} />} label="Profile" active={activeKey === "profile"} />
+        <NavItem icon={<Settings size={18} strokeWidth={2} />} label="Settings" to="/settings" active={activeKey === "settings"} />
       </nav>
 
       <div className="sidebar__qibla">

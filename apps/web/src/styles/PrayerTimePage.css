@@ -161,6 +161,100 @@
   border-radius: 999px;
 }
 
+html.noor-theme-dark .prayer-page {
+  background: linear-gradient(180deg, #071711 0%, #0b1d17 100%);
+  color: #e5f3ed;
+}
+
+html.noor-theme-dark .sidebar {
+  background: rgba(12, 28, 22, 0.94);
+  border-right-color: rgba(209, 250, 229, 0.08);
+}
+
+html.noor-theme-dark .sidebar__title,
+html.noor-theme-dark .nav-link:hover,
+html.noor-theme-dark .nav-link--active,
+html.noor-theme-dark .sidebar__qibla-value,
+html.noor-theme-dark .page-header__title,
+html.noor-theme-dark .schedule__title,
+html.noor-theme-dark .card__title,
+html.noor-theme-dark .iqamah-strong,
+html.noor-theme-dark .settings__mosque-name,
+html.noor-theme-dark .adjust-val {
+  color: #d9f7e8;
+}
+
+html.noor-theme-dark .sidebar__subtitle,
+html.noor-theme-dark .nav-link,
+html.noor-theme-dark .sidebar__qibla-label,
+html.noor-theme-dark .page-header__meta,
+html.noor-theme-dark .schedule__legend,
+html.noor-theme-dark .settings__mosque-area,
+html.noor-theme-dark .settings__hint,
+html.noor-theme-dark .settings__map-fallback,
+html.noor-theme-dark .adjust-row {
+  color: #91ad9f;
+}
+
+html.noor-theme-dark .nav-link--active {
+  background: rgba(4, 120, 87, 0.28);
+  border-left-color: #6ee7b7;
+}
+
+html.noor-theme-dark .sidebar__qibla,
+html.noor-theme-dark .schedule,
+html.noor-theme-dark .prayer-page .card,
+html.noor-theme-dark .loading-screen,
+html.noor-theme-dark .error-message {
+  background: rgba(15, 35, 28, 0.96);
+  border-color: rgba(209, 250, 229, 0.08);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.22);
+}
+
+html.noor-theme-dark .schedule__table th {
+  background: rgba(11, 29, 23, 0.96);
+  color: #91ad9f;
+  border-bottom-color: rgba(209, 250, 229, 0.08);
+}
+
+html.noor-theme-dark .schedule__table td,
+html.noor-theme-dark .schedule__head,
+html.noor-theme-dark .settings__map,
+html.noor-theme-dark .friday__slot,
+html.noor-theme-dark .adjust-row {
+  border-color: rgba(209, 250, 229, 0.08);
+}
+
+html.noor-theme-dark .schedule__table td {
+  color: #d9f7e8;
+}
+
+html.noor-theme-dark .schedule__row--current {
+  background: rgba(4, 120, 87, 0.18);
+}
+
+html.noor-theme-dark .prayer-cell__icon,
+html.noor-theme-dark .settings__map,
+html.noor-theme-dark .adjust-row,
+html.noor-theme-dark .friday__slot {
+  background: rgba(11, 29, 23, 0.92);
+}
+
+html.noor-theme-dark .settings__link,
+html.noor-theme-dark .settings__map-link {
+  color: #6ee7b7;
+}
+
+html.noor-theme-dark .prayer-page .btn--outline {
+  background: rgba(15, 35, 28, 0.95);
+  color: #d9f7e8;
+  border-color: rgba(209, 250, 229, 0.14);
+}
+
+html.noor-theme-dark .prayer-page .btn--outline:hover {
+  background: rgba(4, 120, 87, 0.2);
+}
+
 /* ----- Main ----- */
 .prayer-page .main {
   flex: 1;

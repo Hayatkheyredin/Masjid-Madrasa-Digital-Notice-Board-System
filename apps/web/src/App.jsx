@@ -2,6 +2,7 @@ import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
 import { ForgotPasswordPage } from './pages/ForgotPasswordPage'
 import { LandingPage } from './pages/LandingPage'
 import PrayerTimePage from './pages/PrayerTimePage'
+import SettingsPage from './pages/SettingsPage'
 import { SignInPage } from './pages/SignInPage'
 import { SignUpPage } from './pages/SignUpPage'
 
@@ -14,6 +15,7 @@ export function App() {
         <Route path="/forgot-password" element={<ForgotPasswordPage />} />
         <Route path="/signup" element={<SignUpPage />} />
         <Route path="/prayer-time" element={<PrayerTimePage />} />
+        <Route path="/settings" element={<SettingsPage />} />
         <Route path="/home" element={<Navigate to="/" replace />} />
       </Routes>
     </BrowserRouter>
