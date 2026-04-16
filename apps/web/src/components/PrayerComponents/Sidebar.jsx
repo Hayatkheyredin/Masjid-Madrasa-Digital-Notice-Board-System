@@ -24,12 +24,16 @@ function BrandMark() {
   );
 }
 
-function NavItem({ icon, label, to, active = false }) {
+function NavItem({ icon, label, to, active = false, disabled = false }) {
   const className = `nav-link${active ? " nav-link--active" : ""}`;
 
-  if (!to) {
+  if (disabled || !to) {
     return (
-      <a href="#" className={className}>
+      <a
+        href={to || "#"}
+        className={className}
+        onClick={(event) => event.preventDefault()}
+      >
         <span className="nav-link__icon" aria-hidden="true">
           {icon}
         </span>
@@ -62,7 +66,7 @@ export default function Sidebar({ activeKey = "prayer" }) {
       </div>
 
       <nav className="sidebar__nav">
-        <NavItem icon={<Home size={18} strokeWidth={2} />} label="Dashboard" to="/" active={activeKey === "dashboard"} />
+        <NavItem icon={<Home size={18} strokeWidth={2} />} label="Dashboard" to="/" active={activeKey === "dashboard"} disabled />
         <NavItem icon={<Clock3 size={18} strokeWidth={2} />} label="Prayer Times" to="/prayer-time" active={activeKey === "prayer"} />
         <NavItem icon={<Bell size={18} strokeWidth={2} />} label="Announcements" active={activeKey === "announcements"} />
         <NavItem icon={<BookOpen size={18} strokeWidth={2} />} label="Madrasa" active={activeKey === "madrasa"} />
