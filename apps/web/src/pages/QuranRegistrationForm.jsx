@@ -1,5 +1,5 @@
-import React, { useMemo, useState } from 'react';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import React, { useEffect, useMemo, useState } from 'react';
+import { Link, useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import { announcementsById } from '../data/announcementsData';
 
 const STORAGE_KEY = 'nejashi_quran_registrations';
@@ -12,13 +12,17 @@ function saveRegistration(payload) {
 function QuranRegistrationForm() {
   const navigate = useNavigate();
   const { announcementId } = useParams();
+  const [searchParams] = useSearchParams();
 
   const announcement = announcementsById[announcementId] || announcementsById['winter-quran-registration'];
+  const selectedKitabIndex = Number.parseInt(searchParams.get('kitab') || '0', 10);
 
   const trackOptions = useMemo(() => {
     const tracks = announcement?.kitaabs?.map((k) => k.name) || [];
     return tracks;
   }, [announcement]);
+
+  const selectedKitab = announcement?.kitaabs?.[selectedKitabIndex] || announcement?.kitaabs?.[0] || null;
 
   const [form, setForm] = useState({
     name: '',
@@ -28,6 +32,13 @@ function QuranRegistrationForm() {
     kitab: trackOptions[0] || '',
     notes: '',
   });
+
+  useEffect(() => {
+    setForm((current) => ({
+      ...current,
+      kitab: selectedKitab?.name || trackOptions[0] || '',
+    }));
+  }, [selectedKitab, trackOptions]);
 
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState('');
@@ -90,7 +101,7 @@ function QuranRegistrationForm() {
           This registration form is only available for Madrasa announcements.
         </p>
         <div style={{ marginTop: '18px' }}>
-          <Link to="/" style={{ textDecoration: 'none' }}>
+          <Link to="/announcements" style={{ textDecoration: 'none' }}>
             <button className="btn" style={{ backgroundColor: 'var(--color-primary)', color: '#fff', border: 'none', borderRadius: '12px', padding: '12px 16px', cursor: 'pointer' }}>
               ← Back
             </button>
@@ -107,17 +118,42 @@ function QuranRegistrationForm() {
           <p style={{ margin: 0, color: 'var(--color-primary)', fontWeight: 800, letterSpacing: '0.6px', textTransform: 'uppercase', fontSize: '12px' }}>
             Nejashi Mesjid Koye Feche
           </p>
-          <h1 style={{ margin: '10px 0 0', fontSize: '34px' }}>Quran Registration</h1>
+          <h1 style={{ margin: '10px 0 0', fontSize: '34px' }}>Join Madrasa Class</h1>
           <p style={{ margin: '10px 0 0', color: 'var(--color-muted)', lineHeight: 1.8 }}>
             Fill the form below. We will contact you after submission.
           </p>
         </div>
-        <Link to={`/announcement/${announcement.id}`} style={{ textDecoration: 'none' }}>
+        <Link to="/madrasa" style={{ textDecoration: 'none' }}>
           <button className="btn" style={{ border: '1px solid var(--color-border)', backgroundColor: 'var(--color-surface)', color: 'var(--color-text)', borderRadius: '12px', padding: '12px 16px', cursor: 'pointer' }}>
-            ← Back to program
+            ← Back to classes
           </button>
         </Link>
       </div>
+
+      {selectedKitab && (
+        <div className="card" style={{ padding: '18px', marginBottom: '16px', display: 'grid', gridTemplateColumns: '1.1fr 220px', gap: '16px', alignItems: 'center' }}>
+          <div>
+            <p style={{ margin: 0, color: '#FFD700', fontWeight: 800, letterSpacing: '0.5px', textTransform: 'uppercase', fontSize: '12px' }}>
+              Selected Class
+            </p>
+            <h2 style={{ margin: '8px 0 0', fontSize: '24px', color: 'var(--color-text)' }}>{selectedKitab.name}</h2>
+            <p style={{ margin: '10px 0 0', color: 'var(--color-muted)', lineHeight: 1.7 }}>{selectedKitab.description}</p>
+            <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap', marginTop: '14px' }}>
+              <span style={{ padding: '8px 12px', borderRadius: '999px', background: 'rgba(20, 195, 142, 0.12)', color: 'var(--color-primary)', fontWeight: 700, fontSize: '13px' }}>
+                {selectedKitab.teacher}
+              </span>
+              <span style={{ padding: '8px 12px', borderRadius: '999px', background: 'rgba(255, 215, 0, 0.18)', color: '#7A5E00', fontWeight: 700, fontSize: '13px' }}>
+                {selectedKitab.classTime}
+              </span>
+            </div>
+          </div>
+          <img
+            src={selectedKitab.image}
+            alt={selectedKitab.name}
+            style={{ width: '100%', height: '180px', objectFit: 'cover', borderRadius: '16px', border: '1px solid var(--color-border)' }}
+          />
+        </div>
+      )}
 
       {submitted && (
         <div className="card" style={{ padding: '16px', marginBottom: '16px', borderColor: 'rgba(20, 195, 142, 0.35)', background: 'rgba(20, 195, 142, 0.10)' }}>
@@ -129,7 +165,7 @@ function QuranRegistrationForm() {
             <button className="btn" onClick={copyRegistration} style={{ border: 'none', background: 'var(--color-primary)', color: '#fff', borderRadius: '12px', padding: '12px 16px', cursor: 'pointer' }}>
               Copy details
             </button>
-            <button className="btn" onClick={() => navigate('/')} style={{ border: '1px solid var(--color-border)', background: 'var(--color-surface)', color: 'var(--color-text)', borderRadius: '12px', padding: '12px 16px', cursor: 'pointer' }}>
+            <button className="btn" onClick={() => navigate('/announcements')} style={{ border: '1px solid var(--color-border)', background: 'var(--color-surface)', color: 'var(--color-text)', borderRadius: '12px', padding: '12px 16px', cursor: 'pointer' }}>
               Go to announcements
             </button>
           </div>
@@ -198,4 +234,3 @@ function QuranRegistrationForm() {
 }
 
 export default QuranRegistrationForm;
-

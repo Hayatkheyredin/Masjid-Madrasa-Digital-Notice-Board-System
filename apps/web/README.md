@@ -25,7 +25,7 @@ This is the **user-facing** web UI for announcements, Quran/Kitāb programs, and
 
 ## Tech stack
 
-- **React** + **Create React App**
+- **React** + **Vite**
 - **react-router-dom** for routing
 - Styling via **design tokens** in `src/App.css` (light/dark via `prefers-color-scheme`)
 
@@ -75,10 +75,10 @@ From `Masjid-Madrasa-Digital-Notice-Board-System/apps/web`:
 
 ```bash
 npm install
-npm start
+npm run dev
 ```
 
-Open `http://localhost:3000`.
+Open `http://localhost:5173`.
 
 ## Notes / limitations (current)
 

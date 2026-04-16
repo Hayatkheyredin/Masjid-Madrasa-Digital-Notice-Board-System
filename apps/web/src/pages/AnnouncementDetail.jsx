@@ -19,7 +19,7 @@ function AnnouncementDetail() {
 
   const handlePrimaryAction = () => {
     if (announcement.type === 'madrasa') {
-      navigate(`/announcement/${announcement.id}/register`);
+      navigate('/madrasa');
       return;
     }
 
@@ -162,7 +162,7 @@ function AnnouncementDetail() {
              'Explore the full celebration details, schedule, and community information for our upcoming Eid prayer.'}
           </p>
         </div>
-        <Link to="/" style={{ textDecoration: 'none' }}>
+        <Link to="/announcements" style={{ textDecoration: 'none' }}>
           <button style={{ backgroundColor: '#fff', color: '#334155', border: '1px solid #E2E8F0', borderRadius: '14px', padding: '14px 22px', cursor: 'pointer', fontWeight: 700 }}>
             ← Back to Announcements
           </button>

@@ -15,7 +15,7 @@ function CalendarPage() {
             View Hijri-based reminders and click any day to see details.
           </p>
         </div>
-        <Link to="/" style={{ textDecoration: 'none' }}>
+        <Link to="/announcements" style={{ textDecoration: 'none' }}>
           <button className="btn" style={{ border: '1px solid var(--color-border)', background: 'var(--color-surface)', color: 'var(--color-text)', padding: '12px 16px', cursor: 'pointer' }}>
             ← Back to Announcements
           </button>
@@ -28,4 +28,3 @@ function CalendarPage() {
 }
 
 export default CalendarPage;
-

@@ -29,6 +29,20 @@ function Announcements() {
     });
   }, [activeFilter, searchTerm]);
 
+  const handleFilterClick = (item) => {
+    if (item === 'Friday') {
+      navigate('/khutbahs');
+      return;
+    }
+
+    if (item === 'Madrasa') {
+      navigate('/madrasa');
+      return;
+    }
+
+    setActiveFilter(item);
+  };
+
   return (
     <div style={{ width: '100%', maxWidth: '1200px', margin: '0 auto', padding: '20px' }}>
       
@@ -131,7 +145,7 @@ function Announcements() {
         {filterItems.map((item) => (
           <button
             key={item}
-            onClick={() => setActiveFilter(item)}
+            onClick={() => handleFilterClick(item)}
             style={{
               border: 'none',
               borderRadius: '999px',
@@ -160,7 +174,13 @@ function Announcements() {
           boxShadow: '0 18px 45px rgba(15, 23, 42, 0.08)',
           cursor: 'pointer'
         }}
-        onClick={() => navigate(`/announcement/${featuredAnnouncement.id}`)}
+        onClick={() =>
+          navigate(
+            featuredAnnouncement.type === 'madrasa'
+              ? '/madrasa'
+              : `/announcement/${featuredAnnouncement.id}`,
+          )
+        }
       >
         <div style={{ width: '100%', height: '320px', overflow: 'hidden' }}>
           <img 
@@ -208,12 +228,14 @@ function Announcements() {
       </div>
 
       {/* Announcements Grid */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, minmax(0, 1fr))', gap: '18px' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, minmax(0, 1fr))', gap: '18px' }}>
         {filteredAnnouncements.map((item) => (
           <AnnouncementCard 
             key={item.id} 
             item={item} 
-            onSelect={() => navigate(`/announcement/${item.id}`)} 
+            onSelect={() =>
+              navigate(item.type === 'madrasa' ? '/madrasa' : `/announcement/${item.id}`)
+            } 
           />
         ))}
       </div>
