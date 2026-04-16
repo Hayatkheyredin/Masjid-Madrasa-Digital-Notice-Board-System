@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom'
 import { SiteFooter } from '../components/layout/SiteFooter'
 import { SiteHeader } from '../components/layout/SiteHeader'
 import { Button } from '../components/ui/Button'
+import Announcements from './Announcements'
 
 export function LandingPage() {
   function handleContactSubmit(e) {
@@ -30,8 +31,8 @@ export function LandingPage() {
               <Link className="btn btn--primary" to="/signup">
                 Join Our Community
               </Link>
-              <a className="btn btn--secondary" href="#prayer">
-                View Prayer Times
+              <a className="btn btn--secondary" href="#announcements">
+                View Announcements
               </a>
             </div>
           </div>
@@ -42,6 +43,10 @@ export function LandingPage() {
         </section>
 
         <section className="mission-wrap" id="mission">
+          <section className="landing-announcements" id="announcements">
+            <Announcements />
+          </section>
+
           <div className="container mission">
             <h2>Our Journey &amp; Mission</h2>
             <p className="mission-text">
