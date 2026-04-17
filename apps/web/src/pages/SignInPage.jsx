@@ -1,16 +1,40 @@
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { Eye, EyeOff, Lock, Mail } from 'lucide-react'
 import { AppleGlyph, GoogleGlyph } from '../components/auth/SocialGlyphs'
 import { MasjidMark } from '../components/auth/MasjidMark'
 import { Button } from '../components/ui/Button'
 import { AuthTextField } from '../components/ui/AuthTextField'
+import { setSession, verifyCredentials } from '../lib/authStorage'
 
 export function SignInPage() {
+  const navigate = useNavigate()
   const [showPassword, setShowPassword] = useState(false)
+  const [error, setError] = useState('')
 
   function handleSubmit(e) {
     e.preventDefault()
+    setError('')
+    const fd = new FormData(e.currentTarget)
+    const email = String(fd.get('email') ?? '').trim()
+    const password = String(fd.get('password') ?? '')
+
+    if (!email || !password) {
+      setError('Please enter your email and password.')
+      return
+    }
+    if (!email.includes('@')) {
+      setError('Please enter a valid email address.')
+      return
+    }
+
+    const result = verifyCredentials(email, password)
+    if (!result.ok) {
+      setError(result.error)
+      return
+    }
+    setSession(result.user)
+    navigate('/announcements', { replace: true })
   }
 
   return (
@@ -29,6 +53,11 @@ export function SignInPage() {
         </p>
 
         <form onSubmit={handleSubmit} noValidate>
+          {error ? (
+            <p className="auth-error" role="alert">
+              {error}
+            </p>
+          ) : null}
           <AuthTextField
             id="login-email"
             label="Email Address"

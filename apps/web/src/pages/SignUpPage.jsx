@@ -1,16 +1,50 @@
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { Eye, EyeOff, Lock, Mail, ShieldCheck, User } from 'lucide-react'
 import { AppleGlyph, GoogleGlyph } from '../components/auth/SocialGlyphs'
 import { MasjidMark } from '../components/auth/MasjidMark'
 import { Button } from '../components/ui/Button'
 import { AuthTextField } from '../components/ui/AuthTextField'
+import { registerUser, setSession } from '../lib/authStorage'
 
 export function SignUpPage() {
+  const navigate = useNavigate()
   const [showPassword, setShowPassword] = useState(false)
+  const [error, setError] = useState('')
 
   function handleSubmit(e) {
     e.preventDefault()
+    setError('')
+    const fd = new FormData(e.currentTarget)
+    const fullName = String(fd.get('fullName') ?? '').trim()
+    const email = String(fd.get('email') ?? '').trim()
+    const password = String(fd.get('password') ?? '')
+    const confirmPassword = String(fd.get('confirmPassword') ?? '')
+
+    if (!fullName || !email || !password || !confirmPassword) {
+      setError('Please fill in all fields.')
+      return
+    }
+    if (!email.includes('@')) {
+      setError('Please enter a valid email address.')
+      return
+    }
+    if (password.length < 8) {
+      setError('Password must be at least 8 characters.')
+      return
+    }
+    if (password !== confirmPassword) {
+      setError('Passwords do not match.')
+      return
+    }
+
+    const result = registerUser({ email, fullName, password })
+    if (!result.ok) {
+      setError(result.error)
+      return
+    }
+    setSession({ email: email.trim().toLowerCase(), fullName })
+    navigate('/announcements', { replace: true })
   }
 
   return (
@@ -29,6 +63,11 @@ export function SignUpPage() {
         </p>
 
         <form onSubmit={handleSubmit} noValidate>
+          {error ? (
+            <p className="auth-error" role="alert">
+              {error}
+            </p>
+          ) : null}
           <AuthTextField
             id="signup-name"
             label="Full Name"
